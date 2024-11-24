@@ -1,0 +1,60 @@
+{extends file="main.html"}
+
+{block name=footer}Przykładowa tresć stopki wpisana do szablonu głównego z szablonu kalkulatora{/block}
+
+{block name=content}
+
+<nav id="nav" >
+	<ul class="container">
+		<li><h3>Witaj {$user->login}</h3></li>
+		<li><a href="#app_header">{$page_title|default:"Tytuł domyślny"}</a></li>
+		<li><a href="#app_footer">Stopka</a></li>
+		<li>
+			<form class="pure-form pure-form-stacked" action="{$conf->action_url}logout" method="post">
+				<button type="submit" class="pure-button pure-button-primary">Wyloguj</button>
+			</form>	
+		</li>
+	</ul>
+</nav>
+
+<article id="portfolio" class="wrapper style3">
+	<div class="container medium">
+		<header>
+			<h3>Prosty kalkulator kredytowy</h3>
+		</header>
+		<div class="row">
+			<div class="col-12">
+				<form class="pure-form pure-form-stacked" action="{$conf->action_root}calcCompute" method="post">
+					<legend><h3>Wprowadź dane do obliczeń miesięcznej raty kredytu</h2></legend>
+			
+					<label for="id_money">Kwota kredytu</label>
+					<input id="id_money" type="text" placeholder="PLN" name="money" value="{$form->money}">
+			
+					<label for="id_years">Okres kredytowania</label>
+					<input id="id_years" type="text" placeholder="Liczba lat" name="years" value="{$form->years}">
+			
+					<label for="id_percent">Roczne oprocentowanie</label>
+					<input id="id_percent" type="text" placeholder="Procent" name="percent" value="{$form->percent}">
+			
+					<button type="submit">Oblicz</button>
+				</form>	
+			
+			</div>
+		</div>
+	</div>
+
+	{include file='messages.html'}
+
+	<div>
+		{if isset($result->result)}
+			<h4>Miesięczna rata: </h4>
+			<p>
+				{$result->result} PLN
+			</p>
+		{/if}
+	</div>
+
+
+</article>
+
+{/block}
