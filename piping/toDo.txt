@@ -1,0 +1,48 @@
+Do zrobienia
+- koncepcje do utworzenia
+    - routing
+    - kontrolery
+    - szablon główny
+
+- widoki do utworzenia:
+    - logowania
+    - dodania nowych użytkowników
+    - edycja użytkowników
+    - ekran obliczeń
+    - ekran z listą wyników
+    - ekran edycji obliczeń
+
+
+Wymagania:
+	- system wielo-użytkownikowy
+	- cel
+	- model bazy danych
+	- filtrowanie danych
+	- stronnicowanie
+	- widok CSS
+
+
+
+TO-DO
+- logowanie z wpisów z bazy danych
+- doszlifować widok logowania
+
+- poprawić lokalizacje Messages w templates
+- doszlifować widok szablonu głównego
+- dodać rolę i login w widoku szablonu głównego po zalogowanniu
+- skorygować widoczność menu na górze szablonu gdy jest się niezalogowanym lub nie jest się adminem
+
+- widok edycji użytkownika
+    - doszlifować widok
+    - ostatni admin nie może się usunąć
+    - edycja userów
+    - user nie może się sam usunąć
+
+
+
+
+
+
+- widok kalkulatora
+- widok odczytu wyników
+- widok edycji wybranych katalogów

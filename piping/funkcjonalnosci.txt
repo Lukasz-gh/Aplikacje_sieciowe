@@ -1,0 +1,19 @@
+1.	Temat
+Implementacja obliczeń wytrzymałościowych grubości ścianki rurociągi wg. normy PN-EN 13480-3
+
+2.	Role i funkcjonalności
+Gość
+- użytkownik, który może się tylko zalogować
+- nie posiada dostępu do innych funkcjonalności
+
+Kierownik projektu
+- widzi wyniki obliczeń wszystkich projektantów, nie ma możliwości ich edycji ani usuwania
+
+Projektant
+- może za pomocą formularza dokonać obliczeń grubości ścianki rury i zapisać ją do bazy danych
+- może edytować zapisane swoje obliczenia
+- ma podgląd bez prawa edycji do wyników obliczeń innych projektantów
+
+Administrator
+- dodaje i usuwa użytkowników
+- może zmieniać role użytkownikom.

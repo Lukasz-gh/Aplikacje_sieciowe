@@ -1,0 +1,20 @@
+<head>
+	<meta charset="utf-8"/>
+	<title>Aplikacja bazodanowa</title>
+	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+		integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+	<link rel="stylesheet" href="{$conf->app_url}/css/style.css">
+</head>
+
+<article id="app_footer" class="wrapper style4">
+	<div class="footer">
+		<p>
+			{block name=footer}Przykładowa tresć stopki wpisana do szablonu ekranie kalkulatora{/block}
+		</p>
+
+		<ul id="copyright">
+			<li>&copy; Untitled</li><li>Widok oparty na stylu z <a href="https://html5up.net/" target="_blank">Html5up</a>.</li>
+		</ul>
+	</div>
+
+</article>
