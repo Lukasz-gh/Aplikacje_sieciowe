@@ -9,24 +9,11 @@ use app\forms\UserListForm;
 
 class UserListCtrl {
 
-
     private $records;
 
+    // dodać stronnicowanie
 
-    // public function action_addUser() {
-    
-    // }
-
-    // public function action_deleteUser() {
-    
-    // }
-
-    // public function action_changeRole() {
-    
-    // }
-
-    public function action_userList() {
-		    
+    public function action_userList() {  
         try {
             $this->records = App::getDB()->select("users", [
                 "[>]roles" => "idroles"
@@ -43,7 +30,6 @@ class UserListCtrl {
                 Utils::addErrorMessage($e->getMessage());
         }
 
- 
         App::getSmarty()->assign('people', $this->records); 
         App::getSmarty()->display("userList.tpl");
 

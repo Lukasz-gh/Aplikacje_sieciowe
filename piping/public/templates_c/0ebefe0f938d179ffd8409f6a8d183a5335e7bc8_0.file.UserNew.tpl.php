@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-12-08 21:44:40
+/* Smarty version 4.3.4, created on 2024-12-15 19:50:30
   from 'C:\xampp\htdocs\piping\app\views\UserNew.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_67560538ec9332_36992490',
+  'unifunc' => 'content_675f24f6b602f8_50919166',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '0ebefe0f938d179ffd8409f6a8d183a5335e7bc8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\piping\\app\\views\\UserNew.tpl',
-      1 => 1733690679,
+      1 => 1733691454,
       2 => 'file',
     ),
   ),
@@ -20,23 +20,23 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_67560538ec9332_36992490 (Smarty_Internal_Template $_smarty_tpl) {
+function content_675f24f6b602f8_50919166 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_154389014167560538ec36e6_89733874', 'content');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_2130584579675f24f6b59ba1_23244274', 'content');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
 }
 /* {block 'content'} */
-class Block_154389014167560538ec36e6_89733874 extends Smarty_Internal_Block
+class Block_2130584579675f24f6b59ba1_23244274 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'content' => 
   array (
-    0 => 'Block_154389014167560538ec36e6_89733874',
+    0 => 'Block_2130584579675f24f6b59ba1_23244274',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -67,10 +67,10 @@ userSave" method="post" class="pure-form pure-form-aligned">
                 <label for="role">Rola</label>
                 <select id="role" type="text" placeholder="rola" name="role" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->role;?>
 ">
-                    <option value="admin">Administrator</option>
-                    <option value="projetcManager">Kierownik Projektu</option>
-                    <option value="engineer">Inżynier</option>
-                    <option value="expert">Ekspert</option>
+                    <option value="2">Administrator</option>
+                    <option value="3">Kierownik Projektu</option>
+                    <option value="5">Inżynier</option>
+                    <option value="4">Ekspert</option>
                 </select> 
             </div>
 

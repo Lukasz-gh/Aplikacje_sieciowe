@@ -1,18 +1,3 @@
-Do zrobienia
-- koncepcje do utworzenia
-    - routing
-    - kontrolery
-    - szablon główny
-
-- widoki do utworzenia:
-    - logowania
-    - dodania nowych użytkowników
-    - edycja użytkowników
-    - ekran obliczeń
-    - ekran z listą wyników
-    - ekran edycji obliczeń
-
-
 Wymagania:
 	- system wielo-użytkownikowy
 	- cel
@@ -21,28 +6,43 @@ Wymagania:
 	- stronnicowanie
 	- widok CSS
 
-
-
 TO-DO
-- logowanie z wpisów z bazy danych
-- doszlifować widok logowania
+- ogólne
+    - przydzielić role do widoków
+    - połączyć logowanie do bazy z rolami
 
-- poprawić lokalizacje Messages w templates
-- doszlifować widok szablonu głównego
-- dodać rolę i login w widoku szablonu głównego po zalogowanniu
-- skorygować widoczność menu na górze szablonu gdy jest się niezalogowanym lub nie jest się adminem
+- szablon główny
+    - poprawić lokalizacje Messages w templates
+    - doszlifować widok szablonu głównego
+    - dodać rolę i login w widoku szablonu głównego po zalogowanniu
+    - skorygować widoczność menu na górze szablonu gdy jest się niezalogowanym lub nie jest się adminem
 
-- widok edycji użytkownika
+- widok logowanie
+    - logowanie z wpisów z bazy danych
+    - doszlifować widok logowania
+
+- widok listy użytkownika
     - doszlifować widok
+    - stronnicowanie wyników
+
+- widok dodania nowych użytkowników
+    - sprawdzanie czy nowy login jest już w bazie
     - ostatni admin nie może się usunąć
-    - edycja userów
+    - stronnicowanie wyników
     - user nie może się sam usunąć
+    - przy edycji wczytuje się zawsze ta sama rola w liście ról
 
+- widok listy wyników
+    - kolejność wyświetlania wyników
+    - szerokość kolumn
+    - stronnicowanie wyników
 
+- widok obliczeń
+    - walidacja za pomocą walidatora
+    - obliczenia
+    - zapis do bazy danych
+    - usuwanie obliczeń
+    - edycja obliczeń
+    - odczyt danych z katalogu a nie z sztywnej listy
 
-
-
-
-- widok kalkulatora
-- widok odczytu wyników
-- widok edycji wybranych katalogów
+- widok edycji wybranych katalogów (ewentualnie)

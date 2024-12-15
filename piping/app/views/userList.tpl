@@ -18,7 +18,6 @@
         </tr>
     </thead>
 
-
     {foreach $people as $p}
         {strip}
             <tr>
@@ -33,8 +32,5 @@
             </tr>
         {/strip}
         {/foreach}
-
-
-
 
 {/block}
