@@ -19,6 +19,7 @@ Utils::addRoute('calcNew',      'CalcCtrl',             ['admin']);
 Utils::addRoute('calcEdit',     'CalcCtrl',             ['admin']);
 Utils::addRoute('calcDelete',   'CalcCtrl',             ['admin']);
 Utils::addRoute('calcSave',     'CalcCtrl',             ['admin']);
+Utils::addRoute('catList',      'CatListCtrl',          ['admin']);
 
 
 // Utils::addRoute('steelEdit',      'SteelEditCtrl' ['enginner']);

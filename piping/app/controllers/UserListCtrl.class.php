@@ -5,13 +5,17 @@ namespace app\controllers;
 use core\App;
 use core\Utils;
 use core\ParamUtils;
+use core\SessionUtils;
 use app\forms\UserListForm;
 
 class UserListCtrl {
 
     private $records;
+    private $login;
 
     // dodać stronnicowanie
+
+    // $login = SessionUtils::load($login, $keep = true);
 
     public function action_userList() {  
         try {
@@ -31,6 +35,7 @@ class UserListCtrl {
         }
 
         App::getSmarty()->assign('people', $this->records); 
+        App::getSmarty()->assign('login', SessionUtils::load($login, $keep = true)); 
         App::getSmarty()->display("userList.tpl");
 
     }

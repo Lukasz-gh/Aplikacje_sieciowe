@@ -19,6 +19,7 @@ TO-DO
 
 - widok logowanie
     - logowanie z wpisów z bazy danych
+    - dodać zapis roli i loginu do sesji
     - doszlifować widok logowania
 
 - widok listy użytkownika
@@ -39,10 +40,15 @@ TO-DO
 
 - widok obliczeń
     - walidacja za pomocą walidatora
-    - obliczenia
-    - zapis do bazy danych
+    - obliczenia korekta odczytów z bazy danych
     - usuwanie obliczeń
     - edycja obliczeń
     - odczyt danych z katalogu a nie z sztywnej listy
+    - jak obliczenia będą ok to dodać przycik zapisu do bazy danych
+    - dodać wpiswanie usera z sesji przy wpisie do bazy danych
 
-- widok edycji wybranych katalogów (ewentualnie)
+- widok katalogów
+    - szablon
+    - odczyt z bazy danych
+    - dodać prawa edycji i usuwania dla roli expert
+    - dodać ewentualnie dodatkowe katalogi na tej samej stronie

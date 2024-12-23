@@ -6,8 +6,11 @@
     <a class="pure-button button-success" href="{$conf->action_root}calcNew">Nowe obliczenia</a>
 </div>	
 
-<h3>Lista wyników obliczeń</h3>
 
+<h4>Witaj {$user->login}</h4>
+<h4>Twoja rola w systemie to {$user->role}</h4>
+
+<h3>Lista wyników obliczeń</h3>
 
 <table id="calc" class="pure-table pure-table-bordered">
 <thead>

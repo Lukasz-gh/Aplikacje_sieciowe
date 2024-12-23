@@ -23,6 +23,32 @@
 		</div>
 	</div>
 
+
+    <table id="tab_steel" class="pure-table pure-table-bordered">
+    <thead>
+        <tr>
+            <th>role</th>
+			<th>login</th>
+        </tr>
+    </thead>
+
+    {foreach $roles as $p}
+        {strip}
+            <tr>
+                <td>{$p["roles"]}</td>
+				<td>{$p["login"]}</td>
+            </tr>
+        {/strip}
+    {/foreach}
+
+	Witaj {$roles}
+
+	{foreach $roles as $x}
+		{$x["roles"]}
+	{/foreach}
+
+
+
 </article>
 
 {/block}

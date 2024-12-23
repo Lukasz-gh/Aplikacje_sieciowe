@@ -73,24 +73,86 @@ class CalcCtrl {
         return !App::getMessages()->isError();
     }
 
+	public function calcCompute(){
 
-	public function action_calcCompute(){
+        $granicaPlastycznosci;
+        $granicaWytrzymalosci;
+        $gruboscScianki;
+        $srednicaRury;
+        $idScianki = $this->form->idWallThickness;
+        $idStali = $this->form->idSteel;
+        $idSrednicy = $this->form->idDiamater;
+
+        if ($this->validateSave()) {
+            try {
+                $granicaPlastycznosci = App::getDB()->select("steel", "*", [
+                    "granicaPlastycznosci",
+                    ], [
+                    "idSteel" == $idStali,
+                ]);
+                $granicaWytrzymalosci = App::getDB()->select("steel", "*", [
+                    "granicaWytrzymalosci",
+                    ], [
+                    "idSteel" == $idStali,
+                ]);
+                $srednicaRury = App::getDB()->select("diameter", "*", [
+                    "real",
+                    ], [
+                    "idSteel" == $idSrednicy,
+                ]);
+                $gruboscScianki = App::getDB()->select("wallthickness", "*", [
+                    "wallThickness",
+                    ], [
+                    "idWallThickness" == $idScianki,
+                ]);
 
 
+                Utils::addInfoMessage('Pomyślnie odczytano rekordy');
+            } catch (\PDOException $e) {
+                Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
+                if (App::getConf()->debug)
+                    Utils::addErrorMessage($e->getMessage());
+            }
+
+        // if ($granicaPlastycznosci(0) / 1.5 > $granicaWytrzymalosci(0) / 2.4) {
+        //     $this->form->naprezeniaProjekowe = $granicaWytrzymalosci / 2.4;
+        // } else {
+        //     $this->form->naprezeniaProjekowe = $granicaPlastycznosci / 1.5;
+        // }
+        $this->form->naprezeniaProjekowe = 200;
+        Utils::addInfoMessage('Pomyślnie granice wytrzymałości = '.$this->form->naprezeniaProjekowe);
+
+        // if($gruboscScianki * 0.2 > 0.5) {
+        //     $this->form->najmniejszaGrubosc = $gruboscScianki * 0.2;
+        // } else {
+        //     $this->form->najmniejszaGrubosc = 0.5;
+        // }
+        $this->form->tolerancjaScianki = 0.5;
+        Utils::addInfoMessage('Tolerancja ścianki ścianki = '.$this->form->tolerancjaScianki);
+
+        // $this->form->najmniejszaGrubosc = $this->form->cisObliczeniowe * $srednicaRury * (2 * $this->form->naprezeniaProjekowe * $this->form->wytrzymaloscZlacza + $this->form->cisObliczeniowe)
+        //     + $this->form->korozja + $this->form->pocienienie + $this->form->najmniejszaGrubosc;
+
+        $this->form->najmniejszaGrubosc = 1;
+        Utils::addInfoMessage('Najmniejszą grubości ścianki = '.$this->form->najmniejszaGrubosc);
 
 
+        $gruboscScianki = 3;
+        Utils::addInfoMessage('grubości ścianki = '.$gruboscScianki);
 
 
+        if ($this->form->najmniejszaGrubosc > $gruboscScianki)
+            Utils::addErrorMessage('Zamówieniowa grubość ścianki jest mniejsza niż obliczona');
 
 
-        // pobrać granice plastyczności z bazy dla wybranej stali
-        // obliczyć naprężenia i wybrać mniejsze
-        // policzyć grubość ścianki z wzoru
-        // dodać naddatki
-        // porównać z zamówieniową
+        if (App::getMessages()->isError())
+            return false;
 
-        Utils::addInfoMessage('Obliczono');
+        return !App::getMessages()->isError();
+
+
     }
+}
     
 
 	public function action_calcEdit(){
@@ -108,19 +170,25 @@ class CalcCtrl {
 
 
     public function action_calcSave() {
-		     
+        // $this->calcCompute();
         
-        if ($this->validateSave()) {
-            try {
+        if ($this->calcCompute()) {
+            try { 
+                App::getDB()->insert("calulations", [
+                    "cisnienieObliczeniowe" => $this->form->cisObliczeniowe,
+                    "tempObliczeniowa" => $this->form->tempObliczeniowa,
+                    "naprezeniaProjektowe" => $this->form->naprezeniaProjekowe,
+                    "wytrzymaloscZlacza" => $this->form->wytrzymaloscZlacza,
+                    "korozja" => $this->form->korozja,
+                    "tolerancjaScianki" => $this->form->tolerancjaScianki,
+                    "pocienienie" => $this->form->pocienienie,
+                    "najmniejszaGrubosc" => $this->form->najmniejszaGrubosc,
+                    "idusers" => 101,
+                    "idsteel" => $this->form->idSteel,
+                    "iddiameter" => $this->form->idDiamater,
+                    "idwallThickness" => $this->form->idWallThickness,
 
-
-
-                
-                // App::getDB()->insert("users", [
-                //     "login" => $this->form->login,
-                //     "password" => $this->form->password,
-                //     "idroles" => $this->form->role
-                // ]);
+                ]);
                 Utils::addInfoMessage('Pomyślnie zapisano rekord');
             } catch (\PDOException $e) {
                 Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
@@ -128,7 +196,7 @@ class CalcCtrl {
                     Utils::addErrorMessage($e->getMessage());
             }
 
-            App::getRouter()->forwardTo('calcList');
+            App::getRouter()->forwardTo('calcNew');
         } else {
             $this->generateView();
         }
