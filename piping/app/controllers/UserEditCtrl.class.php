@@ -38,6 +38,17 @@ class UserEditCtrl {
         if (App::getMessages()->isError())
             return false;
 
+        if(
+            $records = App::getDB()->select("users", [
+                "login",
+            ], [
+                "login" => $this->form->login,
+            ])
+            ) {
+                Utils::addErrorMessage('Istniejej już użytkownik o takim loginie');
+                return false;
+            }
+
         return !App::getMessages()->isError();
     }
 

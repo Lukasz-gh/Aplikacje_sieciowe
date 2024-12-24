@@ -7,6 +7,7 @@ use core\Message;
 use core\Utils;
 use core\ParamUtils;
 use core\SessionUtils;
+use app\forms\User;
 use app\forms\CalcListForm;
 
 
@@ -51,8 +52,10 @@ class CalcListCtrl {
                  Utils::addErrorMessage($e->getMessage());
         }
     
+        $this->user = SessionUtils::loadObject($users, $keep = true);
+
         App::getSmarty()->assign('calculation', $this->records); 
-        App::getSmarty()->assign('user', SessionUtils::loadObject($users, $keep = true)); 
+        App::getSmarty()->assign('user', $this->user);
         // App::getSmarty()->assign('logins', ParamUtils::getFromSession($login)); 
 
 

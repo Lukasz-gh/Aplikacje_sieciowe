@@ -9,29 +9,28 @@ Wymagania:
 TO-DO
 - ogólne
     - przydzielić role do widoków
-    - połączyć logowanie do bazy z rolami
+    - błąd ze zmienną przy odczycie wartości z sesji
 
 - szablon główny
+    - doszlifować widok
     - poprawić lokalizacje Messages w templates
-    - doszlifować widok szablonu głównego
-    - dodać rolę i login w widoku szablonu głównego po zalogowanniu
     - skorygować widoczność menu na górze szablonu gdy jest się niezalogowanym lub nie jest się adminem
 
 - widok logowanie
-    - logowanie z wpisów z bazy danych
-    - dodać zapis roli i loginu do sesji
-    - doszlifować widok logowania
+    - ddoszlifować widok
 
 - widok listy użytkownika
     - doszlifować widok
     - stronnicowanie wyników
 
 - widok dodania nowych użytkowników
-    - sprawdzanie czy nowy login jest już w bazie
-    - ostatni admin nie może się usunąć
+    - doszlifować widok
     - stronnicowanie wyników
     - user nie może się sam usunąć
+    - usunąć domyślnie wybraną rolę z listy ról
     - przy edycji wczytuje się zawsze ta sama rola w liście ról
+    - ewentualnie: ostatni admin nie może się usunąć
+    - ewentualnie: odczyt ról z bazy danych a nie ze sztywnej listy
 
 - widok listy wyników
     - kolejność wyświetlania wyników
@@ -39,16 +38,17 @@ TO-DO
     - stronnicowanie wyników
 
 - widok obliczeń
+    - zweryfikować do jest potrzebne do zapise w bazie danych
     - walidacja za pomocą walidatora
     - obliczenia korekta odczytów z bazy danych
     - usuwanie obliczeń
     - edycja obliczeń
     - odczyt danych z katalogu a nie z sztywnej listy
+    - usunąć domyślnie wybrane parametry z list
     - jak obliczenia będą ok to dodać przycik zapisu do bazy danych
     - dodać wpiswanie usera z sesji przy wpisie do bazy danych
 
 - widok katalogów
-    - szablon
-    - odczyt z bazy danych
+    - doszlifować widok
     - dodać prawa edycji i usuwania dla roli expert
-    - dodać ewentualnie dodatkowe katalogi na tej samej stronie
+    - ewentualnie: dodatkowe katalogi na tej samej stronie

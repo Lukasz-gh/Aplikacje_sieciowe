@@ -15,7 +15,7 @@ class LoginCtrl {
     private $form;
     private $records;
     private $roles;
-
+    private $role;
 
     public function __construct() {
         //stworzenie potrzebnych obiektów
@@ -43,38 +43,10 @@ class LoginCtrl {
             return false;
 
         // sprawdzenie, czy dane logowania poprawne
-        // (takie informacje najczęściej przechowuje się w bazie danych)
-        if (!$this->checkDB()) {
-           
-
-            $this->getRole();
-
-        // if ($this->form->login == "admin" && $this->form->pass == "admin") {
-
-            $user = new User($this->form->login, 'admin');
+        if ($this->checkDB()) {
+            $user = new User($this->form->login, $this->role);
             SessionUtils::storeObject($users, $user);
-            // RoleUtils::addRole( getRole());
-            RoleUtils::addRole('admin');
-
-            // $user = new User($this->form->login, 'manager');
-            // $_SESSION['user'] = serialize($user);
-            // addRole($user->role)
-
-            // print_r($this->roles)
-
- 
-
-            // SessionUtils::storeObject($login, $this->form->login);
-            // SessionUtils::storeObject($role, 'admin');
-            // $user = new User($this->form->login, 'admin');
-
-        } else if ($this->form->login == "pm" && $this->form->pass == "pm") {
-
-            $user = new User($this->form->login, "projectManager");
-            SessionUtils::storeObject($users, $user);
-
-            RoleUtils::addRole('projectManager');
-
+            RoleUtils::addRole($this->role);
         } else {
             Utils::addErrorMessage('Niepoprawny login lub hasło');
         }
@@ -83,8 +55,7 @@ class LoginCtrl {
     }
 
     public function checkDB() {
-        try {
-            
+        try {      
             if(
                 $this->records = App::getDB()->select("users", [
                     "login",
@@ -95,36 +66,11 @@ class LoginCtrl {
                 ])
             ) {
                 Utils::addInfoMessage('Dane poprawne');
-
-
                 $this->getRole();
                 return true;
             } else {
                 return false;
             }
-
-            // $this->pass = App::getDB()->select("users", [
-            //     "password",
-            // ], [
-            //     "login" => $this->form->login,
-            // ]);
-
-            // foreach ($this->pass as $value) {
-            //     $this->password = $value;
-            // }
-            
-
-
-            // Utils::addInfoMessage('Hasło pobrane '.implode("", $this->pass));
-
-            // if ($this->form->pass == $this->pass) {
-            //     Utils::addInfoMessage('Dane OK');
-            //     return true;
-            // } else {
-            //     Utils::addInfoMessage('Dane nie OK');
-            //     return false;
-            // }
-
         } catch (\PDOException $e) {
             Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
             if (App::getConf()->debug)
@@ -137,31 +83,20 @@ class LoginCtrl {
             $this->roles = App::getDB()->select("users", [
                 "[>]roles" => "idroles"
             ], [
-                "roles",
-                "login",
+                "roles[String]",
             ], [
                 "login" => $this->form->login,
             ]);
 
-
-
-
-            // $this->roles = print_r($this->roles);
+            $this->role = $this->roles[0]['roles'];
             Utils::addInfoMessage('Rola odczytana');
-
 
         } catch (\PDOException $e) {
             Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
             if (App::getConf()->debug)
                 Utils::addErrorMessage($e->getMessage());
         }
-
     }
-
-
-
-
-
 
     public function action_loginShow() {
         $this->generateView();
@@ -177,10 +112,6 @@ class LoginCtrl {
             $this->generateView();
         }
     }
-
-
-
-
 
     public function action_logout() {
         // 1. zakończenie sesji
