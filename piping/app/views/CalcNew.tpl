@@ -29,8 +29,8 @@
             </div>
 
             <div class="pure-control-group">
-                <label for="idDiamater">Średnica</label>
-                <select id="idDiamater" type="text" placeholder="idDiamater" name="idDiamater" value="{$form->idDiamater}">
+                <label for="idDiameer">Średnica</label>
+                <select id="idDiameter" type="text" placeholder="idDiameter" name="idDiameter" value="{$form->idDiameter}">
                     <option value="300">26,9</option>
                     <option value="301">33,7</option>
                     <option value="302">42,4</option>

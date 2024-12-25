@@ -15,6 +15,6 @@ class CalcEditForm {
     public $najmniejszaGrubosc;
     public $idUser;
     public $idSteel;
-    public $idDiamater;
+    public $idDiameter;
     public $idWallThickness;
 }

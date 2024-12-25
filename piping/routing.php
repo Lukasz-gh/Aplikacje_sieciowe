@@ -15,11 +15,11 @@ Utils::addRoute('userSave',     'UserEditCtrl',	        ['admin']);
 Utils::addRoute('userDelete',   'UserEditCtrl',	        ['admin']);
 Utils::addRoute('userEdit',     'UserEditCtrl',	        ['admin']);
 Utils::addRoute('calcList',     'CalcListCtrl');
-Utils::addRoute('calcNew',      'CalcCtrl',             ['admin']);
-Utils::addRoute('calcEdit',     'CalcCtrl',             ['admin']);
-Utils::addRoute('calcDelete',   'CalcCtrl',             ['admin']);
-Utils::addRoute('calcSave',     'CalcCtrl',             ['admin']);
-Utils::addRoute('catList',      'CatListCtrl',          ['admin']);
+Utils::addRoute('calcNew',      'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);
+Utils::addRoute('calcEdit',     'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);
+Utils::addRoute('calcDelete',   'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);
+Utils::addRoute('calcSave',     'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);
+Utils::addRoute('catList',      'CatListCtrl',          ['admin', 'projectManager', 'engineer', 'expert']);
 
 
 // Utils::addRoute('steelEdit',      'SteelEditCtrl' ['enginner']);

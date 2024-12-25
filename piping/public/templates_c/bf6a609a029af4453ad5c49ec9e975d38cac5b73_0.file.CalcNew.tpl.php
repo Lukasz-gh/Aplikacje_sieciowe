@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-12-15 21:18:40
+/* Smarty version 4.3.4, created on 2024-12-25 18:49:27
   from 'C:\xampp\htdocs\piping\app\views\CalcNew.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_675f39a0dac1d5_96099464',
+  'unifunc' => 'content_676c45a7d138b4_08550228',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bf6a609a029af4453ad5c49ec9e975d38cac5b73' => 
     array (
       0 => 'C:\\xampp\\htdocs\\piping\\app\\views\\CalcNew.tpl',
-      1 => 1734293899,
+      1 => 1735148964,
       2 => 'file',
     ),
   ),
@@ -20,25 +20,25 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_675f39a0dac1d5_96099464 (Smarty_Internal_Template $_smarty_tpl) {
+function content_676c45a7d138b4_08550228 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1521533643675f39a0d9c3e1_73291692', 'content');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_426388243676c45a7cf6a30_29375091', 'content');
 ?>
 
 <?php $_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
 }
 /* {block 'content'} */
-class Block_1521533643675f39a0d9c3e1_73291692 extends Smarty_Internal_Block
+class Block_426388243676c45a7cf6a30_29375091 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'content' => 
   array (
-    0 => 'Block_1521533643675f39a0d9c3e1_73291692',
+    0 => 'Block_426388243676c45a7cf6a30_29375091',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -76,8 +76,8 @@ calcSave" method="post" class="pure-form pure-form-aligned">
             </div>
 
             <div class="pure-control-group">
-                <label for="idDiamater">Średnica</label>
-                <select id="idDiamater" type="text" placeholder="idDiamater" name="idDiamater" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->idDiamater;?>
+                <label for="idDiameer">Średnica</label>
+                <select id="idDiameter" type="text" placeholder="idDiameter" name="idDiameter" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->idDiameter;?>
 ">
                     <option value="300">26,9</option>
                     <option value="301">33,7</option>

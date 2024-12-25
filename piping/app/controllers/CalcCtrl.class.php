@@ -27,7 +27,7 @@ class CalcCtrl {
         $this->form->pocienienie = ParamUtils::getFromRequest('pocienienie', true, 'Błędne wywołanie aplikacji');
         $this->form->wytrzymaloscZlacza = ParamUtils::getFromRequest('wytrzymaloscZlacza', true, 'Błędne wywołanie aplikacji');
         $this->form->idSteel = ParamUtils::getFromRequest('idSteel', true, 'Błędne wywołanie aplikacji');
-        $this->form->idDiamater = ParamUtils::getFromRequest('idDiamater', true, 'Błędne wywołanie aplikacji');
+        $this->form->idDiameter = ParamUtils::getFromRequest('idDiameter', true, 'Błędne wywołanie aplikacji');
         $this->form->idWallThickness = ParamUtils::getFromRequest('idWallThickness', true, 'Błędne wywołanie aplikacji');
 
         if (App::getMessages()->isError())
@@ -79,33 +79,34 @@ class CalcCtrl {
         $granicaWytrzymalosci;
         $gruboscScianki;
         $srednicaRury;
-        $idScianki = $this->form->idWallThickness;
-        $idStali = $this->form->idSteel;
-        $idSrednicy = $this->form->idDiamater;
 
         if ($this->validateSave()) {
             try {
-                $granicaPlastycznosci = App::getDB()->select("steel", "*", [
+                $this->records = App::getDB()->select("steel", [
                     "granicaPlastycznosci",
-                    ], [
-                    "idSteel" == $idStali,
-                ]);
-                $granicaWytrzymalosci = App::getDB()->select("steel", "*", [
                     "granicaWytrzymalosci",
                     ], [
-                    "idSteel" == $idStali,
-                ]);
-                $srednicaRury = App::getDB()->select("diameter", "*", [
-                    "real",
-                    ], [
-                    "idSteel" == $idSrednicy,
-                ]);
-                $gruboscScianki = App::getDB()->select("wallthickness", "*", [
-                    "wallThickness",
-                    ], [
-                    "idWallThickness" == $idScianki,
+                    "idSteel" => $this->form->idSteel,
                 ]);
 
+                $granicaWytrzymalosci = $this->records[0]['granicaWytrzymalosci'];
+                $granicaPlastycznosci = $this->records[0]['granicaPlastycznosci'];
+
+                $this->records = App::getDB()->select("diameter", [
+                    "real",
+                    ], [
+                    "idDiameter" => $this->form->idDiameter,
+                ]);
+
+                $srednicaRury = $this->records[0]['real'];
+
+                $this->records = App::getDB()->select("wallthickness", [
+                    "wallThickness",
+                    ], [
+                    "idWallThickness" => $this->form->idWallThickness,
+                ]);
+
+                $gruboscScianki = $this->records[0]['wallThickness'];
 
                 Utils::addInfoMessage('Pomyślnie odczytano rekordy');
             } catch (\PDOException $e) {
@@ -114,64 +115,98 @@ class CalcCtrl {
                     Utils::addErrorMessage($e->getMessage());
             }
 
-        // if ($granicaPlastycznosci(0) / 1.5 > $granicaWytrzymalosci(0) / 2.4) {
-        //     $this->form->naprezeniaProjekowe = $granicaWytrzymalosci / 2.4;
-        // } else {
-        //     $this->form->naprezeniaProjekowe = $granicaPlastycznosci / 1.5;
-        // }
-        $this->form->naprezeniaProjekowe = 200;
-        Utils::addInfoMessage('Pomyślnie granice wytrzymałości = '.$this->form->naprezeniaProjekowe);
+        if ($granicaPlastycznosci / 1.5 > $granicaWytrzymalosci / 2.4) {
+            $this->form->naprezeniaProjekowe = $granicaWytrzymalosci / 2.4;
+        } else {
+            $this->form->naprezeniaProjekowe = $granicaPlastycznosci / 1.5;
+        }
+        Utils::addInfoMessage('Granice wytrzymałości do obliczeń = '.$this->form->naprezeniaProjekowe);
 
-        // if($gruboscScianki * 0.2 > 0.5) {
-        //     $this->form->najmniejszaGrubosc = $gruboscScianki * 0.2;
-        // } else {
-        //     $this->form->najmniejszaGrubosc = 0.5;
-        // }
-        $this->form->tolerancjaScianki = 0.5;
-        Utils::addInfoMessage('Tolerancja ścianki ścianki = '.$this->form->tolerancjaScianki);
 
-        // $this->form->najmniejszaGrubosc = $this->form->cisObliczeniowe * $srednicaRury * (2 * $this->form->naprezeniaProjekowe * $this->form->wytrzymaloscZlacza + $this->form->cisObliczeniowe)
-        //     + $this->form->korozja + $this->form->pocienienie + $this->form->najmniejszaGrubosc;
+        if($gruboscScianki * 0.125 > 0.4) {
+            $this->form->tolerancjaScianki = $gruboscScianki * 0.125;
+        } else {
+            $this->form->tolerancjaScianki = 0.4;
+        }
+        Utils::addInfoMessage('Tolerancja ścianki = '.$this->form->tolerancjaScianki);
 
-        $this->form->najmniejszaGrubosc = 1;
+        $this->form->najmniejszaGrubosc = round(($this->form->cisObliczeniowe * $srednicaRury / (2 * $this->form->naprezeniaProjekowe * $this->form->wytrzymaloscZlacza + $this->form->cisObliczeniowe)
+            + ($this->form->korozja + $this->form->pocienienie + $this->form->najmniejszaGrubosc)), 2);
+
         Utils::addInfoMessage('Najmniejszą grubości ścianki = '.$this->form->najmniejszaGrubosc);
-
-
-        $gruboscScianki = 3;
-        Utils::addInfoMessage('grubości ścianki = '.$gruboscScianki);
-
 
         if ($this->form->najmniejszaGrubosc > $gruboscScianki)
             Utils::addErrorMessage('Zamówieniowa grubość ścianki jest mniejsza niż obliczona');
-
 
         if (App::getMessages()->isError())
             return false;
 
         return !App::getMessages()->isError();
-
-
     }
 }
     
-
-	public function action_calcEdit(){
-    
+    public function validateEdit() {
+        $this->form->id = ParamUtils::getFromCleanURL(1, true, 'Błędne wywołanie aplikacji');
+        return !App::getMessages()->isError();
     }
 
+	public function action_calcEdit(){
+        if ($this->validateEdit()) {
+            try {
+                $record = App::getDB()->get("calulations", "*", [
+                    "idcalulations" => $this->form->id
+                ]);
+                $this->form->id = $record['idcalulations'];
+                $this->form->cisObliczeniowe = $record['cisnienieObliczeniowe'];
+                $this->form->tempObliczeniowa = $record['tempObliczeniowa'];
+                $this->form->wytrzymaloscZlacza = $record['wytrzymaloscZlacza'];
+                $this->form->korozja = $record['korozja'];
+                $this->form->pocienienie = $record['pocienienie'];
+                // $this->form->idUser = $record['idUser'];
+                $this->form->idSteel = $record['idsteel'];
+                $this->form->idDiameter = $record['iddiameter'];
+                $this->form->idWallThickness = $record['iddiameter'];
+
+
+            } catch (\PDOException $e) {
+                Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
+                if (App::getConf()->debug)
+                    Utils::addErrorMessage($e->getMessage());
+            }
+        }
+
+        $this->generateView();
+    }
+
+    public function getUser() {
+
+
+
+
+
+    }
 
 	public function action_calcDelete(){
-    
+        if ($this->validateEdit()) {
+            try {
+                App::getDB()->delete("calulations", [
+                    "idcalulations" => $this->form->id,
+                ]);
+                Utils::addInfoMessage('Pomyślnie usunięto rekord');
+            } catch (\PDOException $e) {
+                Utils::addErrorMessage('Wystąpił błąd podczas usuwania rekordu');
+                if (App::getConf()->debug)
+                    Utils::addErrorMessage($e->getMessage());
+            }
+        }
+        App::getRouter()->forwardTo('calcList');
     }
 
     public function action_calcNew() {
         $this->generateView();
     }
 
-
     public function action_calcSave() {
-        // $this->calcCompute();
-        
         if ($this->calcCompute()) {
             try { 
                 App::getDB()->insert("calulations", [
@@ -185,7 +220,7 @@ class CalcCtrl {
                     "najmniejszaGrubosc" => $this->form->najmniejszaGrubosc,
                     "idusers" => 101,
                     "idsteel" => $this->form->idSteel,
-                    "iddiameter" => $this->form->idDiamater,
+                    "iddiameter" => $this->form->idDiameter,
                     "idwallThickness" => $this->form->idWallThickness,
 
                 ]);

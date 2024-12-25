@@ -17,7 +17,7 @@ TO-DO
     - skorygować widoczność menu na górze szablonu gdy jest się niezalogowanym lub nie jest się adminem
 
 - widok logowanie
-    - ddoszlifować widok
+    - doszlifować widok
 
 - widok listy użytkownika
     - doszlifować widok
@@ -38,11 +38,10 @@ TO-DO
     - stronnicowanie wyników
 
 - widok obliczeń
+    - zapis usera wykonującego ogliczenia
+    - przy edycji wczytuje się zawsze te same parametry w listach
     - zweryfikować do jest potrzebne do zapise w bazie danych
     - walidacja za pomocą walidatora
-    - obliczenia korekta odczytów z bazy danych
-    - usuwanie obliczeń
-    - edycja obliczeń
     - odczyt danych z katalogu a nie z sztywnej listy
     - usunąć domyślnie wybrane parametry z list
     - jak obliczenia będą ok to dodać przycik zapisu do bazy danych
