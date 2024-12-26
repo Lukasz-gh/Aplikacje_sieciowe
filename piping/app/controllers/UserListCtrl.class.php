@@ -35,8 +35,8 @@ class UserListCtrl {
         }
 
         App::getSmarty()->assign('people', $this->records); 
-        App::getSmarty()->assign('login', SessionUtils::load($login, $keep = true)); 
-        App::getSmarty()->display("userList.tpl");
+        // App::getSmarty()->assign('login', SessionUtils::load($login, $keep = true)); 
+        App::getSmarty()->display('UserList.tpl');
 
     }
 

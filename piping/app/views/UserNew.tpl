@@ -20,12 +20,37 @@
             </div>
 
             <div class="pure-control-group">
-                <label for="role">Rola</label>
+                <label for="role">Rola DB</label>
                 <select id="role" type="text" placeholder="rola" name="role" value="{$form->role}">
-                    <option value="2">Administrator</option>
-                    <option value="3">Kierownik Projektu</option>
-                    <option value="5">Inżynier</option>
-                    <option value="4">Ekspert</option>
+                    <option value=""></option>
+                    {foreach $roles as $role}
+                        {if $role['roles'] != 'guest'}
+                            {* {if $roles['roles'] == {$form->role}} *}
+                                {* {$selected = 'selected="selected"'} *}
+                            {strip}
+                                <option value="{$role['idroles']}" >{$role['roles']}</option>
+                            {/strip}
+                            {* {/if} *}
+                        {/if}
+
+                        {if $roles['roles'] == {$form->role}}
+                            
+                            {$selected = 'selected'}
+                        {/if}
+                    {/foreach}
+{* 
+                        {if $roles['roles'] == {$form->role}}
+                            
+                            {$selected = 'selected'}
+                        {/if} *}
+
+                        {* selected={$form->selected} *}
+
+                        {* $selected = 'selected="selected"'; *}
+
+
+
+                    {* <option value="" selected="selected">123</option> *}
                 </select> 
             </div>
 
@@ -38,7 +63,5 @@
         <input type="hidden" name="id" value="{$form->id}">
     </form>	
     </div>
-
-
 
 {/block}

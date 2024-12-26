@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-12-15 19:50:30
+/* Smarty version 4.3.4, created on 2024-12-26 20:38:57
   from 'C:\xampp\htdocs\piping\app\views\UserNew.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_675f24f6b602f8_50919166',
+  'unifunc' => 'content_676db0d1b437e1_43589209',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '0ebefe0f938d179ffd8409f6a8d183a5335e7bc8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\piping\\app\\views\\UserNew.tpl',
-      1 => 1733691454,
+      1 => 1735241924,
       2 => 'file',
     ),
   ),
@@ -20,23 +20,23 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_675f24f6b602f8_50919166 (Smarty_Internal_Template $_smarty_tpl) {
+function content_676db0d1b437e1_43589209 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_2130584579675f24f6b59ba1_23244274', 'content');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_121380854676db0d1b344b7_89827886', 'content');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
 }
 /* {block 'content'} */
-class Block_2130584579675f24f6b59ba1_23244274 extends Smarty_Internal_Block
+class Block_121380854676db0d1b344b7_89827886 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'content' => 
   array (
-    0 => 'Block_2130584579675f24f6b59ba1_23244274',
+    0 => 'Block_121380854676db0d1b344b7_89827886',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -64,13 +64,23 @@ userSave" method="post" class="pure-form pure-form-aligned">
             </div>
 
             <div class="pure-control-group">
-                <label for="role">Rola</label>
+                <label for="role">Rola DB</label>
                 <select id="role" type="text" placeholder="rola" name="role" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->role;?>
 ">
-                    <option value="2">Administrator</option>
-                    <option value="3">Kierownik Projektu</option>
-                    <option value="5">Inżynier</option>
-                    <option value="4">Ekspert</option>
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['roles']->value, 'role');
+$_smarty_tpl->tpl_vars['role']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['role']->value) {
+$_smarty_tpl->tpl_vars['role']->do_else = false;
+?>
+                        <?php if ($_smarty_tpl->tpl_vars['role']->value['roles'] != 'guest') {?>
+                            <option value="<?php echo $_smarty_tpl->tpl_vars['role']->value['idroles'];?>
+"><?php echo $_smarty_tpl->tpl_vars['role']->value['roles'];?>
+</option>
+                        <?php }?>
+                    <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </select> 
             </div>
 
@@ -85,8 +95,6 @@ userList">Powrót</a>
 ">
     </form>	
     </div>
-
-
 
 <?php
 }

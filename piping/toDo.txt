@@ -15,6 +15,7 @@ TO-DO
     - doszlifować widok
     - poprawić lokalizacje Messages w templates
     - skorygować widoczność menu na górze szablonu gdy jest się niezalogowanym lub nie jest się adminem
+    - dodać widoczność loginu i roli użytkownika
 
 - widok logowanie
     - doszlifować widok
@@ -27,10 +28,8 @@ TO-DO
     - doszlifować widok
     - stronnicowanie wyników
     - user nie może się sam usunąć
-    - usunąć domyślnie wybraną rolę z listy ról
     - przy edycji wczytuje się zawsze ta sama rola w liście ról
     - ewentualnie: ostatni admin nie może się usunąć
-    - ewentualnie: odczyt ról z bazy danych a nie ze sztywnej listy
 
 - widok listy wyników
     - kolejność wyświetlania wyników
@@ -40,7 +39,7 @@ TO-DO
 - widok obliczeń
     - zapis usera wykonującego ogliczenia
     - przy edycji wczytuje się zawsze te same parametry w listach
-    - zweryfikować do jest potrzebne do zapise w bazie danych
+    - zweryfikować do jest potrzebne do zapisie w bazie danych
     - walidacja za pomocą walidatora
     - odczyt danych z katalogu a nie z sztywnej listy
     - usunąć domyślnie wybrane parametry z list

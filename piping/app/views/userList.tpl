@@ -8,7 +8,7 @@
 
     <h3>Lista userów</h3>
 
-    Witaj {$login}
+    {* Witaj {$login} *}
 
     <table id="tab_people" class="pure-table pure-table-bordered">
     <thead>

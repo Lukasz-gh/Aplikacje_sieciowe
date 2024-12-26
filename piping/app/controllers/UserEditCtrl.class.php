@@ -11,6 +11,7 @@ use app\forms\UserEditForm;
 class UserEditCtrl {
 
     private $form;
+    private $roles;
 
     public function __construct() {
         $this->form = new UserEditForm();
@@ -38,16 +39,18 @@ class UserEditCtrl {
         if (App::getMessages()->isError())
             return false;
 
-        if(
-            $records = App::getDB()->select("users", [
-                "login",
-            ], [
-                "login" => $this->form->login,
-            ])
-            ) {
-                Utils::addErrorMessage('Istniejej już użytkownik o takim loginie');
-                return false;
-            }
+        if ($this->form->id == '') {
+            if(
+                $records = App::getDB()->select("users", [
+                    "login",
+                ], [
+                    "login" => $this->form->login,
+                ])
+                ) {
+                    Utils::addErrorMessage('Istniejej już użytkownik o takim loginie');
+                    return false;
+                }
+        }
 
         return !App::getMessages()->isError();
     }
@@ -59,6 +62,20 @@ class UserEditCtrl {
 
     public function action_userNew() {
         $this->generateView();
+    }
+
+    public function getRolesForm() {
+        try {
+            $this->roles = App::getDB()->select("roles", [
+                "idroles",
+                "roles",
+                ]
+            );
+        } catch (\PDOException $e) {
+            Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
+            if (App::getConf()->debug)
+                Utils::addErrorMessage($e->getMessage());
+        }
     }
 
     public function action_userEdit() {
@@ -100,27 +117,39 @@ class UserEditCtrl {
     public function action_userSave() {
         if ($this->validateSave()) {
             try {
-                App::getDB()->insert("users", [
-                    "login" => $this->form->login,
-                    "password" => $this->form->password,
-                    "idroles" => $this->form->role
-                ]);
-                Utils::addInfoMessage('Pomyślnie zapisano rekord');
+                if ($this->form->id == '') {
+                    App::getDB()->insert("users", [
+                        "login" => $this->form->login,
+                        "password" => $this->form->password,
+                        "idroles" => $this->form->role
+                    ]);
+                    Utils::addInfoMessage('Pomyślnie zapisano rekord');
+                } else {
+                    App::getDB()->update("users", [
+                        "login" => $this->form->login,
+                        "password" => $this->form->password,
+                        "idroles" => $this->form->role
+                        ], [
+                        "idusers" => $this->form->id
+                        ]);
+                }
             } catch (\PDOException $e) {
                 Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
                 if (App::getConf()->debug)
                     Utils::addErrorMessage($e->getMessage());
             }
-
-            App::getRouter()->forwardTo('UserList');
+            App::getRouter()->forwardTo('userList');
         } else {
             $this->generateView();
         }
     }
 
     public function generateView() {
+        $this->getRolesForm();
+        // print_r($this->roles);
+        App::getSmarty()->assign('roles', $this->roles);
         App::getSmarty()->assign('form', $this->form);
-        App::getSmarty()->display('UserNew.tpl');
+        App::getSmarty()->display('userNew.tpl');
     }
 
 }
