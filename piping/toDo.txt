@@ -22,31 +22,29 @@ TO-DO
 
 - widok listy użytkownika
     - doszlifować widok
-    - stronnicowanie wyników
+    - stronnicowanie użytkowników
 
 - widok dodania nowych użytkowników
     - doszlifować widok
-    - stronnicowanie wyników
-    - user nie może się sam usunąć
-    - przy edycji wczytuje się zawsze ta sama rola w liście ról
-    - ewentualnie: ostatni admin nie może się usunąć
+    - walidacja za pomocą walidatora
+    - ewentualnie: jak usuwa się obecnie zalogowany user to wylogować go i zakończyć sesje
+    - ewentualnie: jak obecnie zalogowany user zmienia swoją rolę lub login to aktualizowana jest sesja
+    - ewentualnie: po usunięciu usera, który ma obliczenia należy zaktualizować tabelę z obliczeniami o ich przynależność
 
 - widok listy wyników
-    - kolejność wyświetlania wyników
+    - kolejność wyświetlania kolumn
     - szerokość kolumn
     - stronnicowanie wyników
 
 - widok obliczeń
-    - zapis usera wykonującego ogliczenia
     - przy edycji wczytuje się zawsze te same parametry w listach
     - zweryfikować do jest potrzebne do zapisie w bazie danych
     - walidacja za pomocą walidatora
     - odczyt danych z katalogu a nie z sztywnej listy
     - usunąć domyślnie wybrane parametry z list
     - jak obliczenia będą ok to dodać przycik zapisu do bazy danych
-    - dodać wpiswanie usera z sesji przy wpisie do bazy danych
 
 - widok katalogów
     - doszlifować widok
-    - dodać prawa edycji i usuwania dla roli expert
+    - ewentualnie: dodać prawa edycji i usuwania dla roli expert
     - ewentualnie: dodatkowe katalogi na tej samej stronie

@@ -17,6 +17,8 @@ class CalcListCtrl {
     private $logins;
     private $roles;
     private $user;
+    private $save;
+    private $users;
     // public $login;
     // global $role;
     
@@ -59,12 +61,16 @@ class CalcListCtrl {
         // App::getSmarty()->assign('logins', ParamUtils::getFromSession($login)); 
 
 
+        // $this->save = SessionUtils::loadObject($users, $keep = true)->login;
+		
+
+        // $this->logins = SessionUtils::load($login, $keep = true);
 
         // App::getSmarty()->assign('logins', SessionUtils::load($login, $keep = true)); 
         // App::getSmarty()->assign('roles', ParamUtils::getFromSession($role)); 
 
 
-
+        print_r($this->save);
         // App::getSmarty()->assign('role', App::getConf()->roles); 
         App::getSmarty()->display("CalcList.tpl");
     

@@ -44,11 +44,10 @@ class LoginCtrl {
 
         // sprawdzenie, czy dane logowania poprawne
         if ($this->checkDB()) {
-            $user = new User($this->form->login, $this->role);
-            SessionUtils::storeObject($users, $user);
-            RoleUtils::addRole($this->role);
+
         } else {
             Utils::addErrorMessage('Niepoprawny login lub hasło');
+            return false;
         }
 
         return !App::getMessages()->isError();
@@ -60,14 +59,21 @@ class LoginCtrl {
                 $this->records = App::getDB()->select("users", [
                     "login",
                     "password",
+                    "active",
                 ], [
                     "login" => $this->form->login,
                     "password" => $this->form->pass,
                 ])
             ) {
-                Utils::addInfoMessage('Dane poprawne');
-                $this->getRole();
-                return true;
+                if($this->records[0]['active'] == 2){
+                    Utils::addInfoMessage('Dane poprawne');
+                    $this->getRole();
+                    return true;
+                }
+                else {
+                    Utils::addErrorMessage('Użytkownik ma nieaktywne konto');
+                    return false;
+                }
             } else {
                 return false;
             }
@@ -105,6 +111,14 @@ class LoginCtrl {
     public function action_login() {
         if ($this->validate()) {
             //zalogowany => przekieruj na główną akcję (z przekazaniem messages przez sesję)
+            $user = new User($this->form->login, $this->role);
+
+            // SessionUtils::store($login, $this->form->login);
+            // SessionUtils::store($login, $this->role);
+
+            SessionUtils::storeObject($users, $user);
+            RoleUtils::addRole($this->role);
+            
             Utils::addInfoMessage('Poprawnie zalogowano do systemu');
             App::getRouter()->redirectTo("calc");
         } else {

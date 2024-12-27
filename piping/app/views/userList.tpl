@@ -16,6 +16,7 @@
             <th>Login</th>
             <th>Hasło</th>
             <th>Rola</th>
+            <th>Aktywny</th>
             <th>Opcje</th>
         </tr>
     </thead>
@@ -26,6 +27,7 @@
                 <td>{$p["login"]}</td>
                 <td>{$p["password"]}</td>
                 <td>{$p["roles"]}</td>
+                <td>{if $p["active"] == 2} Tak {else} Nie {/if}</td>
                 <td>
                     <a class="button-small pure-button button-secondary" href="{$conf->action_url}userEdit/{$p['idusers']}">Edytuj</a>
                     &nbsp;

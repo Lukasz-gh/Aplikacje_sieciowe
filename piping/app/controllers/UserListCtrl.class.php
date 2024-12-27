@@ -25,6 +25,7 @@ class UserListCtrl {
                 "login",
                 "password",
                 "roles",
+                "active",
                 "idusers",
             ]);
             

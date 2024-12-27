@@ -14,7 +14,7 @@ Utils::addRoute('userNew',      'UserEditCtrl',     	['admin']);
 Utils::addRoute('userSave',     'UserEditCtrl',	        ['admin']);
 Utils::addRoute('userDelete',   'UserEditCtrl',	        ['admin']);
 Utils::addRoute('userEdit',     'UserEditCtrl',	        ['admin']);
-Utils::addRoute('calcList',     'CalcListCtrl');
+Utils::addRoute('calcList',     'CalcListCtrl',         ['admin', 'projectManager', 'engineer', 'expert']);
 Utils::addRoute('calcNew',      'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);
 Utils::addRoute('calcEdit',     'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);
 Utils::addRoute('calcDelete',   'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);

@@ -20,37 +20,40 @@
             </div>
 
             <div class="pure-control-group">
+                <label for="active">Aktywny</label>
+                <select id="active" type="text" placeholder="aktywny" name="active" value="{$form->active}">
+                    <option value=""></option>
+                    {if $actives[0]['active'] == 2}
+                        {$selected2 = 'selected="selected"'}
+                        {$selected1 = ""}
+                    {else if $actives[0]['active'] == 1}   
+                        {$selected1 = 'selected="selected"'}
+                        {$selected2 = ""}      
+                    {else}
+                        {$selected1 = ""}
+                        {$selected2 = ""}                   
+                    {/if}
+                    <option value="2" {$selected2}>Tak</option>
+                    <option value="1" {$selected1}>Nie</option>
+                </select> 
+            </div>
+
+            <div class="pure-control-group">
                 <label for="role">Rola DB</label>
                 <select id="role" type="text" placeholder="rola" name="role" value="{$form->role}">
                     <option value=""></option>
                     {foreach $roles as $role}
                         {if $role['roles'] != 'guest'}
-                            {* {if $roles['roles'] == {$form->role}} *}
-                                {* {$selected = 'selected="selected"'} *}
+                            {if $role['idroles'] == {$form->role}}
+                                {$selected = 'selected="selected"'}
+                            {else}
+                                {$selected = ""}
+                            {/if}
                             {strip}
-                                <option value="{$role['idroles']}" >{$role['roles']}</option>
+                                <option value="{$role['idroles']}" {$selected}>{$role['roles']}</option>
                             {/strip}
-                            {* {/if} *}
-                        {/if}
-
-                        {if $roles['roles'] == {$form->role}}
-                            
-                            {$selected = 'selected'}
                         {/if}
                     {/foreach}
-{* 
-                        {if $roles['roles'] == {$form->role}}
-                            
-                            {$selected = 'selected'}
-                        {/if} *}
-
-                        {* selected={$form->selected} *}
-
-                        {* $selected = 'selected="selected"'; *}
-
-
-
-                    {* <option value="" selected="selected">123</option> *}
                 </select> 
             </div>
 

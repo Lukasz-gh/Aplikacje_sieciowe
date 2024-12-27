@@ -7,6 +7,7 @@ use core\Message;
 use core\Utils;
 use core\Validator;
 use core\ParamUtils;
+use core\SessionUtils;
 use app\forms\CalcEditForm;
 
 
@@ -14,6 +15,8 @@ class CalcCtrl {
 
     private $form;
     private $records;
+    private $idusers;
+    private $save;
 
     public function __construct() {
         $this->form = new CalcEditForm();
@@ -179,10 +182,18 @@ class CalcCtrl {
     }
 
     public function getUser() {
-
-
-
-
+        $this->save = SessionUtils::loadObject($users, $keep = true)->login;
+        try {
+            $this->idusers = App::getDB()->select("users", [
+                "idusers",
+                ], [
+                "login" => $this->save
+            ]);
+        } catch (\PDOException $e) {
+            Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
+            if (App::getConf()->debug)
+                Utils::addErrorMessage($e->getMessage());
+        }
 
     }
 
@@ -209,6 +220,7 @@ class CalcCtrl {
     public function action_calcSave() {
         if ($this->calcCompute()) {
             try { 
+                $this->getUser();
                 App::getDB()->insert("calulations", [
                     "cisnienieObliczeniowe" => $this->form->cisObliczeniowe,
                     "tempObliczeniowa" => $this->form->tempObliczeniowa,
@@ -218,7 +230,7 @@ class CalcCtrl {
                     "tolerancjaScianki" => $this->form->tolerancjaScianki,
                     "pocienienie" => $this->form->pocienienie,
                     "najmniejszaGrubosc" => $this->form->najmniejszaGrubosc,
-                    "idusers" => 101,
+                    "idusers" => $this->idusers[0]['idusers'],
                     "idsteel" => $this->form->idSteel,
                     "iddiameter" => $this->form->idDiameter,
                     "idwallThickness" => $this->form->idWallThickness,
@@ -239,6 +251,12 @@ class CalcCtrl {
     }
 
     public function generateView() {
+
+        // $this->user = SessionUtils::loadObject($users, $keep = true);
+
+
+
+
         App::getSmarty()->assign('form', $this->form);
         App::getSmarty()->display('CalcNew.tpl');
     }

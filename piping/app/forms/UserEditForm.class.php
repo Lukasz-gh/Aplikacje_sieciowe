@@ -7,4 +7,5 @@ class UserEditForm {
 	public $login;
 	public $password;
 	public $role;
+	public $active;
 }
