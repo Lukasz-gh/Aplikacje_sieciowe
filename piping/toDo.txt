@@ -22,29 +22,60 @@ TO-DO
 
 - widok listy użytkownika
     - doszlifować widok
+    - dodać filtrowanie listy
     - stronnicowanie użytkowników
 
 - widok dodania nowych użytkowników
     - doszlifować widok
     - walidacja za pomocą walidatora
     - ewentualnie: jak usuwa się obecnie zalogowany user to wylogować go i zakończyć sesje
-    - ewentualnie: jak obecnie zalogowany user zmienia swoją rolę lub login to aktualizowana jest sesja
+    - ewentualnie: jak obecnie zalogowany user zmienia swoją rolę lub login to aktualizowana jest sesja i role
     - ewentualnie: po usunięciu usera, który ma obliczenia należy zaktualizować tabelę z obliczeniami o ich przynależność
 
 - widok listy wyników
+    - doszlifować widok
     - kolejność wyświetlania kolumn
     - szerokość kolumn
     - stronnicowanie wyników
+    - dodać filtrowanie listy
 
 - widok obliczeń
-    - przy edycji wczytuje się zawsze te same parametry w listach
+    - doszlifować widok
     - zweryfikować do jest potrzebne do zapisie w bazie danych
     - walidacja za pomocą walidatora
-    - odczyt danych z katalogu a nie z sztywnej listy
-    - usunąć domyślnie wybrane parametry z list
-    - jak obliczenia będą ok to dodać przycik zapisu do bazy danych
+    - ewnetualnie: dla danego płynu mogą być tylko jedne obliczenia dla wybranej średnicy
+    - ewentualnie: jak obliczenia będą ok to dodać przycisk zapisu do bazy danych
+    - ewentualnie: wprowadzania liczby z przecinkiem a nie kropką jako separatorem
 
 - widok katalogów
     - doszlifować widok
+    - stronnicowanie wyników
+    - dodać filtrowanie listy
     - ewentualnie: dodać prawa edycji i usuwania dla roli expert
     - ewentualnie: dodatkowe katalogi na tej samej stronie
+
+- widok listy płynów
+    - doszlifować widok
+    - szerokość kolumn
+
+
+Gość
+- użytkownik, który może się tylko zalogować
+- nie posiada dostępu do innych funkcjonalności
+
+Kierownik projektu
+- widzi wyniki obliczeń wszystkich projektantów, nie ma możliwości ich edycji ani usuwania
+
+Projektant
+- może za pomocą formularza dokonać obliczeń grubości ścianki rury i zapisać ją do bazy danych
+- może edytować zapisane swoje obliczenia
+- ma podgląd bez prawa edycji do wyników obliczeń innych projektantów
+
+Administrator
+- dodaje i usuwa użytkowników
+- może zmieniać role użytkownikom
+
+Ekspert
+- może edytować wszystkie obliczenia
+- może edytować katalogi
+- może edytować listę płynów

@@ -5,8 +5,8 @@ namespace app\forms;
 class CalcEditForm {
     public $id;
     public $date;
+    public $idfluids;
     public $cisObliczeniowe;
-    public $tempObliczeniowa;
     public $naprezeniaProjekowe;
     public $wytrzymaloscZlacza;
     public $korozja;

@@ -31,9 +31,11 @@ class CalcListCtrl {
                 "[>]steel" => ["idsteel"],
                 "[>]diameter" => ["iddiameter"],
                 "[>]wallThickness" => ["idwallThickness"],
+                "[>]fluids" => ["idfluids"],
 
             ], [
-                "cisnienieObliczeniowe",
+                "fluid",
+                "cisObliczeniowe",
                 "tempObliczeniowa",
                 "login",
                 "gatunek",

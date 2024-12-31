@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-12-25 18:49:27
+/* Smarty version 4.3.4, created on 2024-12-31 20:10:04
   from 'C:\xampp\htdocs\piping\app\views\CalcNew.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_676c45a7d138b4_08550228',
+  'unifunc' => 'content_6774418cd883b0_97885988',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bf6a609a029af4453ad5c49ec9e975d38cac5b73' => 
     array (
       0 => 'C:\\xampp\\htdocs\\piping\\app\\views\\CalcNew.tpl',
-      1 => 1735148964,
+      1 => 1735670366,
       2 => 'file',
     ),
   ),
@@ -20,25 +20,25 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_676c45a7d138b4_08550228 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6774418cd883b0_97885988 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_426388243676c45a7cf6a30_29375091', 'content');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_11039630536774418cd62686_05159894', 'content');
 ?>
 
 <?php $_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
 }
 /* {block 'content'} */
-class Block_426388243676c45a7cf6a30_29375091 extends Smarty_Internal_Block
+class Block_11039630536774418cd62686_05159894 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'content' => 
   array (
-    0 => 'Block_426388243676c45a7cf6a30_29375091',
+    0 => 'Block_11039630536774418cd62686_05159894',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -54,24 +54,60 @@ calcSave" method="post" class="pure-form pure-form-aligned">
             <legend>Nowe obliczenia</legend>
 
             <div class="pure-control-group">
-                <label for="cisObliczeniowe">Ciśnienie obliczeniowe</label>
-                <input id="cisObliczeniowe" type="text" placeholder="cisObliczeniowe" name="cisObliczeniowe" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->cisObliczeniowe;?>
+                <label for="idfluids">Płyn</label>
+                <select id="idfluids" type="text" placeholder="idfluids" name="idfluids" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->idfluids;?>
 ">
-            </div>
-
-            <div class="pure-control-group">
-                <label for="tempObliczeniowa">Temperatura obliczeniowa</label>
-                <input id="tempObliczeniowa" type="text" placeholder="tempObliczeniowa" name="tempObliczeniowa" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->tempObliczeniowa;?>
-">
+                    <option value=""></option>
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['fluids']->value, 'fluid');
+$_smarty_tpl->tpl_vars['fluid']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['fluid']->value) {
+$_smarty_tpl->tpl_vars['fluid']->do_else = false;
+?>
+                        <?php ob_start();
+echo $_smarty_tpl->tpl_vars['form']->value->idfluids;
+$_prefixVariable1 = ob_get_clean();
+if ($_smarty_tpl->tpl_vars['fluid']->value['idfluids'] == $_prefixVariable1) {?>
+                            <?php $_smarty_tpl->_assignInScope('selected', 'selected="selected"');?>
+                        <?php } else { ?>
+                            <?php $_smarty_tpl->_assignInScope('selected', '');?>
+                        <?php }?>
+                        <option value="<?php echo $_smarty_tpl->tpl_vars['fluid']->value['idfluids'];?>
+" <?php echo $_smarty_tpl->tpl_vars['selected']->value;?>
+><?php echo $_smarty_tpl->tpl_vars['fluid']->value['fluid'];?>
+</option>
+                    <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                </select> 
             </div>
 
             <div class="pure-control-group">
                 <label for="idSteel">Gatunek stali</label>
                 <select id="idSteel" type="text" placeholder="idSteel" name="idSteel" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->idSteel;?>
 ">
-                    <option value="200">P195TR1</option>
-                    <option value="201">P235TR1</option>
-                    <option value="202">P265TR1</option>
+                    <option value=""></option>
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['steels']->value, 'steel');
+$_smarty_tpl->tpl_vars['steel']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['steel']->value) {
+$_smarty_tpl->tpl_vars['steel']->do_else = false;
+?>
+                        <?php ob_start();
+echo $_smarty_tpl->tpl_vars['form']->value->idSteel;
+$_prefixVariable2 = ob_get_clean();
+if ($_smarty_tpl->tpl_vars['steel']->value['idsteel'] == $_prefixVariable2) {?>
+                            <?php $_smarty_tpl->_assignInScope('selected', 'selected="selected"');?>
+                        <?php } else { ?>
+                            <?php $_smarty_tpl->_assignInScope('selected', '');?>
+                        <?php }?>
+                        <option value="<?php echo $_smarty_tpl->tpl_vars['steel']->value['idsteel'];?>
+" <?php echo $_smarty_tpl->tpl_vars['selected']->value;?>
+><?php echo $_smarty_tpl->tpl_vars['steel']->value['gatunek'];?>
+</option>
+                    <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </select> 
             </div>
 
@@ -79,9 +115,28 @@ calcSave" method="post" class="pure-form pure-form-aligned">
                 <label for="idDiameer">Średnica</label>
                 <select id="idDiameter" type="text" placeholder="idDiameter" name="idDiameter" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->idDiameter;?>
 ">
-                    <option value="300">26,9</option>
-                    <option value="301">33,7</option>
-                    <option value="302">42,4</option>
+                    <option value=""></option>
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['diameters']->value, 'diameter');
+$_smarty_tpl->tpl_vars['diameter']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['diameter']->value) {
+$_smarty_tpl->tpl_vars['diameter']->do_else = false;
+?>
+                        <?php ob_start();
+echo $_smarty_tpl->tpl_vars['form']->value->idDiameter;
+$_prefixVariable3 = ob_get_clean();
+if ($_smarty_tpl->tpl_vars['diameter']->value['iddiameter'] == $_prefixVariable3) {?>
+                            <?php $_smarty_tpl->_assignInScope('selected', 'selected="selected"');?>
+                        <?php } else { ?>
+                            <?php $_smarty_tpl->_assignInScope('selected', '');?>
+                        <?php }?>
+                        <option value="<?php echo $_smarty_tpl->tpl_vars['diameter']->value['iddiameter'];?>
+" <?php echo $_smarty_tpl->tpl_vars['selected']->value;?>
+><?php echo $_smarty_tpl->tpl_vars['diameter']->value['real'];?>
+</option>
+                    <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </select> 
             </div>
 
@@ -89,9 +144,28 @@ calcSave" method="post" class="pure-form pure-form-aligned">
                 <label for="idWallThickness">Grubość ścianki</label>
                 <select id="idWallThickness" type="text" placeholder="idWallThickness" name="idWallThickness" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->idWallThickness;?>
 ">
-                    <option value="400">3,6</option>
-                    <option value="401">4</option>
-                    <option value="402">4,5</option>
+                    <option value=""></option>
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['wallThicknesses']->value, 'wallThickness');
+$_smarty_tpl->tpl_vars['wallThickness']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['wallThickness']->value) {
+$_smarty_tpl->tpl_vars['wallThickness']->do_else = false;
+?>
+                        <?php ob_start();
+echo $_smarty_tpl->tpl_vars['form']->value->idWallThickness;
+$_prefixVariable4 = ob_get_clean();
+if ($_smarty_tpl->tpl_vars['wallThickness']->value['idwallThickness'] == $_prefixVariable4) {?>
+                            <?php $_smarty_tpl->_assignInScope('selected', 'selected="selected"');?>
+                        <?php } else { ?>
+                            <?php $_smarty_tpl->_assignInScope('selected', '');?>
+                        <?php }?>
+                        <option value="<?php echo $_smarty_tpl->tpl_vars['wallThickness']->value['idwallThickness'];?>
+" <?php echo $_smarty_tpl->tpl_vars['selected']->value;?>
+><?php echo $_smarty_tpl->tpl_vars['wallThickness']->value['wallThickness'];?>
+</option>
+                    <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </select> 
             </div>
 
@@ -113,9 +187,6 @@ calcSave" method="post" class="pure-form pure-form-aligned">
 ">
             </div>
 
-
-
-
             <div class="pure-controls">
                 <input type="submit" class="pure-button pure-button-primary" value="Oblicz"/>
                 <a class="pure-button button-secondary" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_root;?>
@@ -127,10 +198,6 @@ calcList">Powrót</a>
 ">
     </form>	
     </div>
-
-
-
-
 
     <?php if ($_smarty_tpl->tpl_vars['msgs']->value->isInfo()) {?>
         <ul>

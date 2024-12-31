@@ -16,4 +16,8 @@ Projektant
 
 Administrator
 - dodaje i usuwa użytkowników
-- może zmieniać role użytkownikom.
+- może zmieniać role użytkownikom
+
+Ekspert
+- może edytować wszystkie obliczenia
+- może edytować katalogi

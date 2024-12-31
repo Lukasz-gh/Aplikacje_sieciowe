@@ -18,8 +18,9 @@
 	<nav id="nav" >
 			<ul class="container">
 				<li><a href="{$conf->action_root}userList">Użytkownicy</a></li>
-				<li><a href="{$conf->action_root}calcNew">Obliczenia</a></li>
+				<li><a href="{$conf->action_root}fluidList">Płyny</a></li>
 				<li><a href="{$conf->action_root}calc">Wyniki</a></li>
+				<li><a href="{$conf->action_root}calcNew">Obliczenia</a></li>
 				<li><a href="{$conf->action_root}catList">Katalogi</a></li>
 				<li>{if count($conf->roles)>0}
 					<a href="{$conf->action_root}logout">Wyloguj</a>

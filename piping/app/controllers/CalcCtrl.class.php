@@ -17,6 +17,13 @@ class CalcCtrl {
     private $records;
     private $idusers;
     private $save;
+    private $diameters;
+    private $wallThicknesses;
+    private $steels;
+    private $diametersEdit;
+    private $wallThicknessesEdit;
+    private $steelsEdit;
+    private $fluids;
 
     public function __construct() {
         $this->form = new CalcEditForm();
@@ -24,8 +31,9 @@ class CalcCtrl {
 
     public function validateSave() {
         $this->form->id = ParamUtils::getFromRequest('id', true, 'Błędne wywołanie aplikacji');
-        $this->form->cisObliczeniowe = ParamUtils::getFromRequest('cisObliczeniowe', true, 'Błędne wywołanie aplikacji');
-        $this->form->tempObliczeniowa = ParamUtils::getFromRequest('tempObliczeniowa', true, 'Błędne wywołanie aplikacji');
+        $this->form->idfluids = ParamUtils::getFromRequest('idfluids', true, 'Błędne wywołanie aplikacji');
+        // $this->form->cisObliczeniowe = ParamUtils::getFromRequest('cisObliczeniowe', true, 'Błędne wywołanie aplikacji');
+        // $this->form->tempObliczeniowa = ParamUtils::getFromRequest('tempObliczeniowa', true, 'Błędne wywołanie aplikacji');
         $this->form->korozja = ParamUtils::getFromRequest('korozja', true, 'Błędne wywołanie aplikacji');
         $this->form->pocienienie = ParamUtils::getFromRequest('pocienienie', true, 'Błędne wywołanie aplikacji');
         $this->form->wytrzymaloscZlacza = ParamUtils::getFromRequest('wytrzymaloscZlacza', true, 'Błędne wywołanie aplikacji');
@@ -36,18 +44,18 @@ class CalcCtrl {
         if (App::getMessages()->isError())
             return false;
 
-        if (empty(trim($this->form->cisObliczeniowe))) {
-            Utils::addErrorMessage('Wprowadź ciśnienie obliczeniowe');
-        }
-        if (!is_numeric($this->form->cisObliczeniowe)) {
-            Utils::addErrorMessage('Ciśnienie obliczeniowe nie jest liczbą');
-        }
-        if (empty(trim($this->form->tempObliczeniowa))) {
-            Utils::addErrorMessage('Wprowadź temperaturę obliczeniową');
-        }
-        if (!is_numeric($this->form->tempObliczeniowa)) {
-            Utils::addErrorMessage('Temperatura obliczeniowa nie jest liczbą');
-        }
+        // if (empty(trim($this->form->cisObliczeniowe))) {
+        //     Utils::addErrorMessage('Wprowadź ciśnienie obliczeniowe');
+        // }
+        // if (!is_numeric($this->form->cisObliczeniowe)) {
+        //     Utils::addErrorMessage('Ciśnienie obliczeniowe nie jest liczbą');
+        // }
+        // if (empty(trim($this->form->tempObliczeniowa))) {
+        //     Utils::addErrorMessage('Wprowadź temperaturę obliczeniową');
+        // }
+        // if (!is_numeric($this->form->tempObliczeniowa)) {
+        //     Utils::addErrorMessage('Temperatura obliczeniowa nie jest liczbą');
+        // }
         if (empty(trim($this->form->korozja))) {
             Utils::addErrorMessage('Wprowadź naddatek na korozje');
         }
@@ -78,6 +86,7 @@ class CalcCtrl {
 
 	public function calcCompute(){
 
+        $cisObliczeniowe;
         $granicaPlastycznosci;
         $granicaWytrzymalosci;
         $gruboscScianki;
@@ -111,6 +120,14 @@ class CalcCtrl {
 
                 $gruboscScianki = $this->records[0]['wallThickness'];
 
+                $this->records = App::getDB()->select("fluids", [
+                    "cisObliczeniowe",
+                    ], [
+                    "idfluids" => $this->form->idfluids,
+                ]);
+
+                $cisObliczeniowe = $this->records[0]['cisObliczeniowe'];
+
                 Utils::addInfoMessage('Pomyślnie odczytano rekordy');
             } catch (\PDOException $e) {
                 Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
@@ -133,7 +150,7 @@ class CalcCtrl {
         }
         Utils::addInfoMessage('Tolerancja ścianki = '.$this->form->tolerancjaScianki);
 
-        $this->form->najmniejszaGrubosc = round(($this->form->cisObliczeniowe * $srednicaRury / (2 * $this->form->naprezeniaProjekowe * $this->form->wytrzymaloscZlacza + $this->form->cisObliczeniowe)
+        $this->form->najmniejszaGrubosc = round(($cisObliczeniowe * $srednicaRury / (2 * $this->form->naprezeniaProjekowe * $this->form->wytrzymaloscZlacza + $cisObliczeniowe)
             + ($this->form->korozja + $this->form->pocienienie + $this->form->najmniejszaGrubosc)), 2);
 
         Utils::addInfoMessage('Najmniejszą grubości ścianki = '.$this->form->najmniejszaGrubosc);
@@ -160,15 +177,16 @@ class CalcCtrl {
                     "idcalulations" => $this->form->id
                 ]);
                 $this->form->id = $record['idcalulations'];
-                $this->form->cisObliczeniowe = $record['cisnienieObliczeniowe'];
-                $this->form->tempObliczeniowa = $record['tempObliczeniowa'];
+                $this->form->idfluids = $record['idfluids'];
+                // $this->form->cisObliczeniowe = $record['cisnienieObliczeniowe'];
+                // $this->form->tempObliczeniowa = $record['tempObliczeniowa'];
                 $this->form->wytrzymaloscZlacza = $record['wytrzymaloscZlacza'];
                 $this->form->korozja = $record['korozja'];
                 $this->form->pocienienie = $record['pocienienie'];
                 // $this->form->idUser = $record['idUser'];
                 $this->form->idSteel = $record['idsteel'];
                 $this->form->idDiameter = $record['iddiameter'];
-                $this->form->idWallThickness = $record['iddiameter'];
+                $this->form->idWallThickness = $record['idwallThickness'];
 
 
             } catch (\PDOException $e) {
@@ -197,6 +215,35 @@ class CalcCtrl {
 
     }
 
+    public function getDbData() {
+        try {
+            $this->diameters = App::getDB()->select("diameter", [
+                "iddiameter",
+                "real",
+                ]);
+
+            $this->wallThicknesses = App::getDB()->select("wallThickness", [
+                "idwallThickness",
+                "wallThickness",
+                ]);
+
+            $this->steels = App::getDB()->select("steel", [
+                "idsteel",
+                "gatunek",
+                ]);
+
+            $this->fluids = App::getDB()->select("fluids", [
+                "idfluids",
+                "fluid",
+                ]);   
+
+        } catch (\PDOException $e) {
+            Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
+            if (App::getConf()->debug)
+                Utils::addErrorMessage($e->getMessage());
+        }
+    }
+
 	public function action_calcDelete(){
         if ($this->validateEdit()) {
             try {
@@ -222,8 +269,9 @@ class CalcCtrl {
             try { 
                 $this->getUser();
                 App::getDB()->insert("calulations", [
-                    "cisnienieObliczeniowe" => $this->form->cisObliczeniowe,
-                    "tempObliczeniowa" => $this->form->tempObliczeniowa,
+                    // "cisnienieObliczeniowe" => $this->form->cisObliczeniowe,
+                    // "tempObliczeniowa" => $this->form->tempObliczeniowa,
+                    "idfluids" => $this->form->idfluids,
                     "naprezeniaProjektowe" => $this->form->naprezeniaProjekowe,
                     "wytrzymaloscZlacza" => $this->form->wytrzymaloscZlacza,
                     "korozja" => $this->form->korozja,
@@ -243,20 +291,21 @@ class CalcCtrl {
                     Utils::addErrorMessage($e->getMessage());
             }
 
-            App::getRouter()->forwardTo('calcNew');
+            App::getRouter()->forwardTo('calcList');
         } else {
             $this->generateView();
         }
 
     }
-
     public function generateView() {
 
         // $this->user = SessionUtils::loadObject($users, $keep = true);
 
-
-
-
+        $this->getDbData();
+        App::getSmarty()->assign('diameters', $this->diameters);
+        App::getSmarty()->assign('wallThicknesses', $this->wallThicknesses);
+        App::getSmarty()->assign('steels', $this->steels);
+        App::getSmarty()->assign('fluids', $this->fluids);
         App::getSmarty()->assign('form', $this->form);
         App::getSmarty()->display('CalcNew.tpl');
     }

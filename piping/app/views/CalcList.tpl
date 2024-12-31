@@ -16,8 +16,9 @@
 <thead>
     <tr>
         <th>Autor</th>
-        <th>Ciśnienie obliczeniowe</th>
-        <th>Temperatura obliczeniowa</th>
+        <th>Płyn</th>
+        {* <th>Ciśnienie obliczeniowe</th>
+        <th>Temperatura obliczeniowa</th> *}
         <th>Gatunek stali</th>
         <th>Średnica</th>
         <th>Grubość ścianki</th>
@@ -35,8 +36,9 @@
     {strip}
         <tr>
             <td>{$c["login"]}</td>
-            <td>{$c["cisnienieObliczeniowe"]}</td>
-            <td>{$c["tempObliczeniowa"]}</td>
+            <td>{$c["fluid"]}</td>
+            {* <td>{$c["cisnienieObliczeniowe"]}</td>
+            <td>{$c["tempObliczeniowa"]}</td> *}
             <td>{$c["gatunek"]}</td>
             <td>{$c["real"]}</td>
             <td>{$c["wallThickness"]}</td>

@@ -10,39 +10,70 @@
             <legend>Nowe obliczenia</legend>
 
             <div class="pure-control-group">
-                <label for="cisObliczeniowe">Ciśnienie obliczeniowe</label>
-                <input id="cisObliczeniowe" type="text" placeholder="cisObliczeniowe" name="cisObliczeniowe" value="{$form->cisObliczeniowe}">
-            </div>
-
-            <div class="pure-control-group">
-                <label for="tempObliczeniowa">Temperatura obliczeniowa</label>
-                <input id="tempObliczeniowa" type="text" placeholder="tempObliczeniowa" name="tempObliczeniowa" value="{$form->tempObliczeniowa}">
+                <label for="idfluids">Płyn</label>
+                <select id="idfluids" type="text" placeholder="idfluids" name="idfluids" value="{$form->idfluids}">
+                    <option value=""></option>
+                    {foreach $fluids as $fluid}
+                        {if $fluid['idfluids'] == {$form->idfluids}}
+                            {$selected = 'selected="selected"'}
+                        {else}
+                            {$selected = ""}
+                        {/if}
+                        {strip}
+                            <option value="{$fluid['idfluids']}" {$selected}>{$fluid['fluid']}</option>
+                        {/strip}
+                    {/foreach}
+                </select> 
             </div>
 
             <div class="pure-control-group">
                 <label for="idSteel">Gatunek stali</label>
                 <select id="idSteel" type="text" placeholder="idSteel" name="idSteel" value="{$form->idSteel}">
-                    <option value="200">P195TR1</option>
-                    <option value="201">P235TR1</option>
-                    <option value="202">P265TR1</option>
+                    <option value=""></option>
+                    {foreach $steels as $steel}
+                        {if $steel['idsteel'] == {$form->idSteel}}
+                            {$selected = 'selected="selected"'}
+                        {else}
+                            {$selected = ""}
+                        {/if}
+                        {strip}
+                            <option value="{$steel['idsteel']}" {$selected}>{$steel['gatunek']}</option>
+                        {/strip}
+                    {/foreach}
                 </select> 
             </div>
 
             <div class="pure-control-group">
                 <label for="idDiameer">Średnica</label>
                 <select id="idDiameter" type="text" placeholder="idDiameter" name="idDiameter" value="{$form->idDiameter}">
-                    <option value="300">26,9</option>
-                    <option value="301">33,7</option>
-                    <option value="302">42,4</option>
+                    <option value=""></option>
+                    {foreach $diameters as $diameter}
+                        {if $diameter['iddiameter'] == {$form->idDiameter}}
+                            {$selected = 'selected="selected"'}
+                        {else}
+                            {$selected = ""}
+                        {/if}
+                        {strip}
+                            <option value="{$diameter['iddiameter']}" {$selected}>{$diameter['real']}</option>
+                        {/strip}
+                    {/foreach}
                 </select> 
             </div>
 
             <div class="pure-control-group">
                 <label for="idWallThickness">Grubość ścianki</label>
                 <select id="idWallThickness" type="text" placeholder="idWallThickness" name="idWallThickness" value="{$form->idWallThickness}">
-                    <option value="400">3,6</option>
-                    <option value="401">4</option>
-                    <option value="402">4,5</option>
+                    <option value=""></option>
+                    {foreach $wallThicknesses as $wallThickness}
+                        {if $wallThickness['idwallThickness'] == {$form->idWallThickness}}
+                            {$selected = 'selected="selected"'}
+                        {else}
+                            {$selected = ""}
+                        {/if}
+                        {strip}
+                            <option value="{$wallThickness['idwallThickness']}" {$selected}>{$wallThickness['wallThickness']}</option>
+                        {/strip}
+                    {/foreach}
                 </select> 
             </div>
 
@@ -61,9 +92,6 @@
                 <input id="wytrzymaloscZlacza" type="text" placeholder="wytrzymaloscZlacza" name="wytrzymaloscZlacza" value="{$form->wytrzymaloscZlacza}">
             </div>
 
-
-
-
             <div class="pure-controls">
                 <input type="submit" class="pure-button pure-button-primary" value="Oblicz"/>
                 <a class="pure-button button-secondary" href="{$conf->action_root}calcList">Powrót</a>
@@ -73,10 +101,6 @@
         <input type="hidden" name="id" value="{$form->id}">
     </form>	
     </div>
-
-
-
-
 
     {if $msgs->isInfo()}
         <ul>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-12-23 12:24:28
+/* Smarty version 4.3.4, created on 2024-12-31 19:11:45
   from 'C:\xampp\htdocs\piping\app\views\CalcList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_6769486ccac5b4_01490573',
+  'unifunc' => 'content_677433e1028a30_31768783',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e62b396188b28f751b950ce5296fbdbf2f616cb9' => 
     array (
       0 => 'C:\\xampp\\htdocs\\piping\\app\\views\\CalcList.tpl',
-      1 => 1734953020,
+      1 => 1735668702,
       2 => 'file',
     ),
   ),
@@ -20,25 +20,25 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6769486ccac5b4_01490573 (Smarty_Internal_Template $_smarty_tpl) {
+function content_677433e1028a30_31768783 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1762254676769486cc98979_58183878', 'content');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1232812369677433e1017dd6_23652900', 'content');
 ?>
 
 <?php $_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
 }
 /* {block 'content'} */
-class Block_1762254676769486cc98979_58183878 extends Smarty_Internal_Block
+class Block_1232812369677433e1017dd6_23652900 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'content' => 
   array (
-    0 => 'Block_1762254676769486cc98979_58183878',
+    0 => 'Block_1232812369677433e1017dd6_23652900',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -62,9 +62,8 @@ calcNew">Nowe obliczenia</a>
 <thead>
     <tr>
         <th>Autor</th>
-        <th>Ciśnienie obliczeniowe</th>
-        <th>Temperatura obliczeniowa</th>
-        <th>Gatunek stali</th>
+        <th>Płyn</th>
+                <th>Gatunek stali</th>
         <th>Średnica</th>
         <th>Grubość ścianki</th>
         <th>Wytrzymałość złącza</th>
@@ -84,8 +83,7 @@ if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['c']->value) {
 $_smarty_tpl->tpl_vars['c']->do_else = false;
 ?>
     <tr><td><?php echo $_smarty_tpl->tpl_vars['c']->value["login"];?>
-</td><td><?php echo $_smarty_tpl->tpl_vars['c']->value["cisnienieObliczeniowe"];?>
-</td><td><?php echo $_smarty_tpl->tpl_vars['c']->value["tempObliczeniowa"];?>
+</td><td><?php echo $_smarty_tpl->tpl_vars['c']->value["fluid"];?>
 </td><td><?php echo $_smarty_tpl->tpl_vars['c']->value["gatunek"];?>
 </td><td><?php echo $_smarty_tpl->tpl_vars['c']->value["real"];?>
 </td><td><?php echo $_smarty_tpl->tpl_vars['c']->value["wallThickness"];?>
