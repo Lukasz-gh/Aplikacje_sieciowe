@@ -6,9 +6,18 @@
     <a class="pure-button button-success" href="{$conf->action_root}userNew">Nowy użytkownik</a>
     </div>	
 
-    <h3>Lista userów</h3>
 
-    {* Witaj {$login} *}
+    <div class="bottom-margin">
+    <form class="pure-form pure-form-stacked" action="{$conf->action_url}userList">
+        <legend>Wyszukwanie użytkownika</legend>
+        <fieldset>
+            <input type="text" placeholder="wpisz login" name="loginSearch" value="{$searchForm->loginSearch}" /><br />
+            <button type="submit" class="pure-button pure-button-primary">Szukaj</button>
+        </fieldset>
+    </form>
+    </div>	
+
+    <h3>Lista użytkowników systemu</h3>
 
     <table id="tab_people" class="pure-table pure-table-bordered">
     <thead>

@@ -6,28 +6,30 @@ Wymagania:
 	- stronnicowanie
 	- widok CSS
 
+{$login = \core\SessionUtils::loadObject($users, 'true')->login}
+{$role = \core\SessionUtils::loadObject($users, 'true')->role}
+
+<h4>Witaj {$login}</h4>
+<h4>Twoje uprawnienia w systemie to {$role}</h4>
+
 TO-DO
 - ogólne
     - przydzielić role do widoków
-    - błąd ze zmienną przy odczycie wartości z sesji
 
 - szablon główny
     - doszlifować widok
     - poprawić lokalizacje Messages w templates
-    - skorygować widoczność menu na górze szablonu gdy jest się niezalogowanym lub nie jest się adminem
-    - dodać widoczność loginu i roli użytkownika
+    - dodać widoczność loginu i roli użytkownika: błąd ze zmienną przy odczycie wartości z sesji
 
 - widok logowanie
     - doszlifować widok
 
 - widok listy użytkownika
     - doszlifować widok
-    - dodać filtrowanie listy
     - stronnicowanie użytkowników
 
 - widok dodania nowych użytkowników
     - doszlifować widok
-    - walidacja za pomocą walidatora
     - ewentualnie: jak usuwa się obecnie zalogowany user to wylogować go i zakończyć sesje
     - ewentualnie: jak obecnie zalogowany user zmienia swoją rolę lub login to aktualizowana jest sesja i role
     - ewentualnie: po usunięciu usera, który ma obliczenia należy zaktualizować tabelę z obliczeniami o ich przynależność
@@ -37,15 +39,17 @@ TO-DO
     - kolejność wyświetlania kolumn
     - szerokość kolumn
     - stronnicowanie wyników
-    - dodać filtrowanie listy
+    - ewentualnie: dodać filtrowanie listy
 
 - widok obliczeń
     - doszlifować widok
-    - zweryfikować do jest potrzebne do zapisie w bazie danych
+    - zweryfikować co jest potrzebne do zapisie w bazie danych
+    - zaokrąglić wynik obliczeń naprężeń
     - walidacja za pomocą walidatora
     - ewnetualnie: dla danego płynu mogą być tylko jedne obliczenia dla wybranej średnicy
     - ewentualnie: jak obliczenia będą ok to dodać przycisk zapisu do bazy danych
     - ewentualnie: wprowadzania liczby z przecinkiem a nie kropką jako separatorem
+    - ewentualnie: expert może zmieniać przynależność obliczeń
 
 - widok katalogów
     - doszlifować widok
@@ -57,14 +61,6 @@ TO-DO
 - widok listy płynów
     - doszlifować widok
     - szerokość kolumn
-
-
-Gość
-- użytkownik, który może się tylko zalogować
-- nie posiada dostępu do innych funkcjonalności
-
-Kierownik projektu
-- widzi wyniki obliczeń wszystkich projektantów, nie ma możliwości ich edycji ani usuwania
 
 Projektant
 - może za pomocą formularza dokonać obliczeń grubości ścianki rury i zapisać ją do bazy danych

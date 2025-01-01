@@ -13,22 +13,29 @@
 
 <body style="margin: 20px;">
 
-
 <body>
 	<nav id="nav" >
+
 			<ul class="container">
-				<li><a href="{$conf->action_root}userList">Użytkownicy</a></li>
+				{if count($conf->roles)>0}
+				{if \core\RoleUtils::inRole("admin")}
+					<li><a href="{$conf->action_root}userList">Użytkownicy</a></li>
+				{/if}
 				<li><a href="{$conf->action_root}fluidList">Płyny</a></li>
 				<li><a href="{$conf->action_root}calc">Wyniki</a></li>
-				<li><a href="{$conf->action_root}calcNew">Obliczenia</a></li>
+				{if \core\RoleUtils::inRole("projectManager")}
+				{else}
+					<li><a href="{$conf->action_root}calcNew">Obliczenia</a></li>
+				{/if}
 				<li><a href="{$conf->action_root}catList">Katalogi</a></li>
-				<li>{if count($conf->roles)>0}
-					<a href="{$conf->action_root}logout">Wyloguj</a>
+				<li><a href="{$conf->action_root}logout">Wyloguj</a>
 				{else}	
 					<a href="{$conf->action_root}loginShow">Zaloguj</a>
 				{/if}</li>
 			</ul>
 	</nav>
+
+
 
 	<div class="content">
 		{block name=content} Domyślna treść zawartości .... {/block}

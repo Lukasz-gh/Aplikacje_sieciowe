@@ -5,8 +5,8 @@ namespace app\controllers;
 use core\App;
 use core\Utils;
 use core\RoleUtils;
-use core\ParamUtils;
 use core\SessionUtils;
+use core\Validator;
 use app\forms\User;
 use app\forms\LoginForm;
 
@@ -18,33 +18,28 @@ class LoginCtrl {
     private $role;
 
     public function __construct() {
-        //stworzenie potrzebnych obiektów
         $this->form = new LoginForm();
     }
 
     public function validate() {
-        $this->form->login = ParamUtils::getFromRequest('login');
-        $this->form->pass = ParamUtils::getFromRequest('pass');
+        $v = new Validator();
 
-        //nie ma sensu walidować dalej, gdy brak parametrów
-        if (!isset($this->form->login))
-            return false;
+        $this->form->login = $v->validateFromRequest('login', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Podaj login',
+        ]);
 
-        // sprawdzenie, czy potrzebne wartości zostały przekazane
-        if (empty($this->form->login)) {
-            Utils::addErrorMessage('Nie podano loginu');
-        }
-        if (empty($this->form->pass)) {
-            Utils::addErrorMessage('Nie podano hasła');
-        }
+        $this->form->pass = $v->validateFromRequest('pass', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Nie podano hasła',
+        ]);
 
-        //nie ma sensu walidować dalej, gdy brak wartości
         if (App::getMessages()->isError())
             return false;
 
-        // sprawdzenie, czy dane logowania poprawne
         if ($this->checkDB()) {
-
         } else {
             Utils::addErrorMessage('Niepoprawny login lub hasło');
             return false;
@@ -114,13 +109,13 @@ class LoginCtrl {
             $user = new User($this->form->login, $this->role);
 
             // SessionUtils::store($login, $this->form->login);
-            // SessionUtils::store($login, $this->role);
+            // SessionUtils::store($role, $this->role);
 
             SessionUtils::storeObject($users, $user);
             RoleUtils::addRole($this->role);
             
             Utils::addInfoMessage('Poprawnie zalogowano do systemu');
-            App::getRouter()->redirectTo("calc");
+            App::getRouter()->redirectTo("calcList");
         } else {
             //niezalogowany => pozostań na stronie logowania
             $this->generateView();

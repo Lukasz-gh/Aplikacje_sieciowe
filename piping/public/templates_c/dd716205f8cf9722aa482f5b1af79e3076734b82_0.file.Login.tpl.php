@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-12-23 12:09:14
+/* Smarty version 4.3.4, created on 2025-01-01 16:55:25
   from 'C:\xampp\htdocs\piping\app\views\Login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_676944dada5f33_59481884',
+  'unifunc' => 'content_6775656d9f5795_94001752',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dd716205f8cf9722aa482f5b1af79e3076734b82' => 
     array (
       0 => 'C:\\xampp\\htdocs\\piping\\app\\views\\Login.tpl',
-      1 => 1734952153,
+      1 => 1735746921,
       2 => 'file',
     ),
   ),
@@ -20,23 +20,23 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_676944dada5f33_59481884 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6775656d9f5795_94001752 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1566205692676944dada1d84_67198275', 'content');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_3325206826775656d9f0fe0_56990391', 'content');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
 }
 /* {block 'content'} */
-class Block_1566205692676944dada1d84_67198275 extends Smarty_Internal_Block
+class Block_3325206826775656d9f0fe0_56990391 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'content' => 
   array (
-    0 => 'Block_1566205692676944dada1d84_67198275',
+    0 => 'Block_3325206826775656d9f0fe0_56990391',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -45,6 +45,8 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 
 <article id="contact" class="wrapper style3">
 	<div class="container medium">
+
+		<h1>Witaj w aplikacji do obliczeń grubości ścianek rurociągów</h1>
 		<header>
 			<h2>Wprowadź swoje dane</h2>
 		</header>

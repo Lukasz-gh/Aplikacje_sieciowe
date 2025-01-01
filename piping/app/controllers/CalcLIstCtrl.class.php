@@ -72,7 +72,7 @@ class CalcListCtrl {
         // App::getSmarty()->assign('roles', ParamUtils::getFromSession($role)); 
 
 
-        print_r($this->save);
+        // print_r($this->save);
         // App::getSmarty()->assign('role', App::getConf()->roles); 
         App::getSmarty()->display("CalcList.tpl");
     

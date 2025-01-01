@@ -21,3 +21,4 @@ Administrator
 Ekspert
 - może edytować wszystkie obliczenia
 - może edytować katalogi
+- może edytować listę płynów

@@ -4,6 +4,8 @@
 
 <article id="contact" class="wrapper style3">
 	<div class="container medium">
+
+		<h1>Witaj w aplikacji do obliczeń grubości ścianek rurociągów</h1>
 		<header>
 			<h2>Wprowadź swoje dane</h2>
 		</header>

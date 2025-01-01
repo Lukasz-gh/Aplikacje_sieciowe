@@ -5,19 +5,40 @@ namespace app\controllers;
 use core\App;
 use core\Utils;
 use core\ParamUtils;
-use core\SessionUtils;
-use app\forms\UserListForm;
+use app\forms\UserSearch;
 
 class UserListCtrl {
 
+    private $form;
     private $records;
-    private $login;
 
-    // dodać stronnicowanie
+    public function __construct() {
+        $this->form = new UserSearch();
+    }
 
-    // $login = SessionUtils::load($login, $keep = true);
+    public function validate() {
+        $this->form->loginSearch = ParamUtils::getFromRequest('loginSearch');
+        return !App::getMessages()->isError();
+    }
+
 
     public function action_userList() {  
+        $this->validate();
+
+        $search_params = [];
+        if (isset($this->form->loginSearch) && strlen($this->form->loginSearch) > 0) {
+            $search_params['login[~]'] = $this->form->loginSearch . '%'; //
+        }
+
+        $num_params = sizeof($search_params);
+        if ($num_params > 1) {
+            $where = ["AND" => &$search_params];
+        } else {
+            $where = &$search_params;
+        }
+
+        $where ["ORDER"] = "login";
+
         try {
             $this->records = App::getDB()->select("users", [
                 "[>]roles" => "idroles"
@@ -27,7 +48,9 @@ class UserListCtrl {
                 "roles",
                 "active",
                 "idusers",
-            ]);
+            ]
+            , $where
+        );
             
         } catch (\PDOException $e) {
             Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
@@ -35,8 +58,8 @@ class UserListCtrl {
                 Utils::addErrorMessage($e->getMessage());
         }
 
+        App::getSmarty()->assign('searchForm', $this->form);
         App::getSmarty()->assign('people', $this->records); 
-        // App::getSmarty()->assign('login', SessionUtils::load($login, $keep = true)); 
         App::getSmarty()->display('UserList.tpl');
 
     }

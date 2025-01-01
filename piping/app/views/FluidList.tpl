@@ -3,7 +3,10 @@
 {block name=content}
 
     <div class="bottom-margin">
+        {if \core\RoleUtils::inRole("projectManager")}
+        {else}
         <a class="pure-button button-success" href="{$conf->action_root}fluidNew">Nowy płyn</a>
+        {/if}
     </div>	
 
     <h3>Lista płynów w projekcie</h3>
@@ -29,9 +32,13 @@
                 <td>{$f["tempObliczeniowa"]}</td>
                 <td>{$f["cisObliczeniowe"]}</td>
                 <td>
-                    <a class="button-small pure-button button-secondary" href="{$conf->action_url}fluidEdit/{$f['idfluids']}">Edytuj</a>
-                    &nbsp;
-                    <a class="button-small pure-button button-warning" href="{$conf->action_url}fluidDelete/{$f['idfluids']}">Usuń</a>
+                    {if \core\RoleUtils::inRole("projectManager")}
+                        Brak opcji
+                    {else}
+                        <a class="button-small pure-button button-secondary" href="{$conf->action_url}fluidEdit/{$f['idfluids']}">Edytuj</a>
+                        &nbsp;
+                        <a class="button-small pure-button button-warning" href="{$conf->action_url}fluidDelete/{$f['idfluids']}">Usuń</a>
+                    {/if}
                 </td>
             </tr>
         {/strip}

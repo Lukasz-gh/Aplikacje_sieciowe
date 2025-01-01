@@ -16,16 +16,16 @@ Utils::addRoute('userDelete',   'UserEditCtrl',	        ['admin']);
 Utils::addRoute('userEdit',     'UserEditCtrl',	        ['admin']);
 Utils::addRoute('calcList',     'CalcListCtrl',         ['admin', 'projectManager', 'engineer', 'expert']);
 // Utils::addRoute('calcCompute',  'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);
-Utils::addRoute('calcNew',      'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);
-Utils::addRoute('calcEdit',     'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);
-Utils::addRoute('calcDelete',   'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);
-Utils::addRoute('calcSave',     'CalcCtrl',             ['admin', 'projectManager', 'engineer', 'expert']);
+Utils::addRoute('calcNew',      'CalcCtrl',             ['admin', 'engineer', 'expert']);
+Utils::addRoute('calcEdit',     'CalcCtrl',             ['admin', 'engineer', 'expert']);
+Utils::addRoute('calcDelete',   'CalcCtrl',             ['admin', 'engineer', 'expert']);
+Utils::addRoute('calcSave',     'CalcCtrl',             ['admin', 'engineer', 'expert']);
 Utils::addRoute('catList',      'CatListCtrl',          ['admin', 'projectManager', 'engineer', 'expert']);
 Utils::addRoute('fluidList',    'FluidListCtrl',        ['admin', 'projectManager', 'engineer', 'expert']);
-Utils::addRoute('fluidNew',     'FluidCtrl',            ['admin', 'projectManager', 'engineer', 'expert']);
-Utils::addRoute('fluidSave',    'FluidCtrl',            ['admin', 'projectManager', 'engineer', 'expert']);
-Utils::addRoute('fluidEdit',    'FluidCtrl',            ['admin', 'projectManager', 'engineer', 'expert']);
-Utils::addRoute('fluidDelete',  'FluidCtrl',            ['admin', 'projectManager', 'engineer', 'expert']);
+Utils::addRoute('fluidNew',     'FluidCtrl',            ['admin', 'engineer', 'expert']);
+Utils::addRoute('fluidSave',    'FluidCtrl',            ['admin', 'engineer', 'expert']);
+Utils::addRoute('fluidEdit',    'FluidCtrl',            ['admin', 'engineer', 'expert']);
+Utils::addRoute('fluidDelete',  'FluidCtrl',            ['admin', 'engineer', 'expert']);
 
 
 

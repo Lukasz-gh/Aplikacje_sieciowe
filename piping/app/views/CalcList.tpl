@@ -3,12 +3,15 @@
 {block name=content}
 
 <div class="bottom-margin">
-    <a class="pure-button button-success" href="{$conf->action_root}calcNew">Nowe obliczenia</a>
-</div>	
+    {if \core\RoleUtils::inRole("projectManager")}
+    {else}
+        <a class="pure-button button-success" href="{$conf->action_root}calcNew">Nowe obliczenia</a>
+    {/if}
+</div>
 
 
 <h4>Witaj {$user->login}</h4>
-<h4>Twoja rola w systemie to {$user->role}</h4>
+<h4>Twoje uprawnienia w systemie to {$user->role}</h4>
 
 <h3>Lista wyników obliczeń</h3>
 
@@ -36,7 +39,7 @@
     {strip}
         <tr>
             <td>{$c["login"]}</td>
-            <td>{$c["fluid"]}</td>
+            <td>{$c["fluid"]} ({$c["cisObliczeniowe"]} bar, {$c["tempObliczeniowa"]} °C)</td>
             {* <td>{$c["cisnienieObliczeniowe"]}</td>
             <td>{$c["tempObliczeniowa"]}</td> *}
             <td>{$c["gatunek"]}</td>
@@ -49,9 +52,13 @@
             <td>{$c["naprezeniaProjektowe"]}</td>
             <td>{$c["najmniejszaGrubosc"]}</td>
             <td>
-                <a class="button-small pure-button button-secondary" href="{$conf->action_url}calcEdit/{$c['idcalulations']}">Edytuj</a>
-                &nbsp;
-                <a class="button-small pure-button button-warning" href="{$conf->action_url}calcDelete/{$c['idcalulations']}">Usuń</a>
+                {if \core\RoleUtils::inRole("projectManager")}
+                    Brak opcji
+                {else}
+                    <a class="button-small pure-button button-secondary" href="{$conf->action_url}calcEdit/{$c['idcalulations']}">Edytuj</a>
+                    &nbsp;
+                    <a class="button-small pure-button button-warning" href="{$conf->action_url}calcDelete/{$c['idcalulations']}">Usuń</a>
+                {/if}
             </td>
         </tr>
     {/strip}

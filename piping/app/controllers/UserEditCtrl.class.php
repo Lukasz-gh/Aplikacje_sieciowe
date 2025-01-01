@@ -21,26 +21,42 @@ class UserEditCtrl {
 
     public function validateSave() {
         $this->form->id = ParamUtils::getFromRequest('id', true, 'Błędne wywołanie aplikacji');
-        $this->form->login = ParamUtils::getFromRequest('login', true, 'Błędne wywołanie aplikacji');
-        $this->form->password = ParamUtils::getFromRequest('password', true, 'Błędne wywołanie aplikacji');
-        $this->form->role = ParamUtils::getFromRequest('role', true, 'Błędne wywołanie aplikacji');
-        $this->form->active = ParamUtils::getFromRequest('active', true, 'Błędne wywołanie aplikacji');
 
-        if (App::getMessages()->isError())
-            return false;
+        $v = new Validator();
 
-        if (empty(trim($this->form->login))) {
-            Utils::addErrorMessage('Wprowadź login');
-        }
-        if (empty(trim($this->form->password))) {
-            Utils::addErrorMessage('Wprowadź hasło');
-        }
-        if (empty(trim($this->form->role))) {
-            Utils::addErrorMessage('Wprowadź role');
-        }
-        if (empty(trim($this->form->active))) {
-            Utils::addErrorMessage('Wprowadź aktywność konta');
-        }
+        $this->form->login = $v->validateFromRequest('login', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Wprowadź login',
+            'min_length' => 2,
+            'max_length' => 20,
+            'validator_message' => 'Login musi mieć od 2 do 20 znaków'
+        ]);
+
+        $this->form->password = $v->validateFromRequest('password', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Wprowadź hasło',
+            'min_length' => 2,
+            'max_length' => 20,
+            'validator_message' => 'Hasło musi mieć od 2 do 20 znaków'
+        ]);
+
+        // if (App::getMessages()->isError())
+        //     return false;
+
+        $this->form->role = $v->validateFromRequest('role', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Wprowadź role',
+        ]);
+
+        $this->form->active = $v->validateFromRequest('active', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Wprowadź aktywność konta',
+        ]);
+
 
         if (App::getMessages()->isError())
             return false;
