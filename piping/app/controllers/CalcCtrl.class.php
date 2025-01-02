@@ -32,11 +32,6 @@ class CalcCtrl {
     public function validateSave() {
         $this->form->id = ParamUtils::getFromRequest('id', true, 'Błędne wywołanie aplikacji');
         $this->form->idfluids = ParamUtils::getFromRequest('idfluids', true, 'Błędne wywołanie aplikacji');
-        // $this->form->cisObliczeniowe = ParamUtils::getFromRequest('cisObliczeniowe', true, 'Błędne wywołanie aplikacji');
-        // $this->form->tempObliczeniowa = ParamUtils::getFromRequest('tempObliczeniowa', true, 'Błędne wywołanie aplikacji');
-        $this->form->korozja = ParamUtils::getFromRequest('korozja', true, 'Błędne wywołanie aplikacji');
-        $this->form->pocienienie = ParamUtils::getFromRequest('pocienienie', true, 'Błędne wywołanie aplikacji');
-        $this->form->wytrzymaloscZlacza = ParamUtils::getFromRequest('wytrzymaloscZlacza', true, 'Błędne wywołanie aplikacji');
         $this->form->idSteel = ParamUtils::getFromRequest('idSteel', true, 'Błędne wywołanie aplikacji');
         $this->form->idDiameter = ParamUtils::getFromRequest('idDiameter', true, 'Błędne wywołanie aplikacji');
         $this->form->idWallThickness = ParamUtils::getFromRequest('idWallThickness', true, 'Błędne wywołanie aplikacji');
@@ -44,39 +39,34 @@ class CalcCtrl {
         if (App::getMessages()->isError())
             return false;
 
-        // if (empty(trim($this->form->cisObliczeniowe))) {
-        //     Utils::addErrorMessage('Wprowadź ciśnienie obliczeniowe');
-        // }
-        // if (!is_numeric($this->form->cisObliczeniowe)) {
-        //     Utils::addErrorMessage('Ciśnienie obliczeniowe nie jest liczbą');
-        // }
-        // if (empty(trim($this->form->tempObliczeniowa))) {
-        //     Utils::addErrorMessage('Wprowadź temperaturę obliczeniową');
-        // }
-        // if (!is_numeric($this->form->tempObliczeniowa)) {
-        //     Utils::addErrorMessage('Temperatura obliczeniowa nie jest liczbą');
-        // }
-        if (empty(trim($this->form->korozja))) {
-            Utils::addErrorMessage('Wprowadź naddatek na korozje');
-        }
-        if (!is_numeric($this->form->korozja)) {
-            Utils::addErrorMessage('Naddatek na korozje nie jest liczbą');
-        }
-        if (empty(trim($this->form->wytrzymaloscZlacza))) {
-            Utils::addErrorMessage('Wprowadź wytrzymałość złącza');
-        }
-        if (!is_numeric($this->form->wytrzymaloscZlacza)) {
-            Utils::addErrorMessage('Wytrzymałość złącza nie jest liczbą');
-        }
-        if (($this->form->wytrzymaloscZlacza) > 1) {
-            Utils::addErrorMessage('Wytrzymałość złącza nie możę być większe od 1');
-        }
-        if (empty(trim($this->form->pocienienie))) {
-            Utils::addErrorMessage('Wprowadź pocienienie ścianki');
-        }
-        if (!is_numeric($this->form->pocienienie)) {
-            Utils::addErrorMessage('Pocieninie ścianki nie jest liczbą');
-        }
+        $v = new Validator();
+
+        $this->form->korozja = $v->validateFromRequest('korozja', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Wprowadź naddatek na korozje',
+            'numeric' => true,
+            'validator_message' => 'Naddatek na korozje nie jest wartością liczbową',
+        ]);
+
+        $this->form->pocienienie = $v->validateFromRequest('pocienienie', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Wprowadź pocienienie ścianki',
+            'numeric' => true,
+            'validator_message' => 'Pocienienie ścianki nie jest wartością liczbową',
+        ]);
+
+        $this->form->wytrzymaloscZlacza = $v->validateFromRequest('wytrzymaloscZlacza', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'WWprowadź wytrzymałość złącza',
+            'numeric' => true,
+            'validator_message' => 'Wytrzymałość złącza ścianki nie jest wartością liczbową',
+            'max' => 1,
+            'min' => 0.7,
+            'validator_message' => 'Wytrzymałość złącza może być w zakresie 0,7 do 1',       
+        ]);
 
         if (App::getMessages()->isError())
             return false;
@@ -136,12 +126,11 @@ class CalcCtrl {
             }
 
         if ($granicaPlastycznosci / 1.5 > $granicaWytrzymalosci / 2.4) {
-            $this->form->naprezeniaProjekowe = $granicaWytrzymalosci / 2.4;
+            $this->form->naprezeniaProjekowe = round($granicaWytrzymalosci / 2.4, 2);
         } else {
-            $this->form->naprezeniaProjekowe = $granicaPlastycznosci / 1.5;
+            $this->form->naprezeniaProjekowe = round($granicaPlastycznosci / 1.5, 2);
         }
         Utils::addInfoMessage('Granice wytrzymałości do obliczeń = '.$this->form->naprezeniaProjekowe);
-
 
         if($gruboscScianki * 0.125 > 0.4) {
             $this->form->tolerancjaScianki = $gruboscScianki * 0.125;
@@ -268,22 +257,41 @@ class CalcCtrl {
         if ($this->calcCompute()) {
             try { 
                 $this->getUser();
-                App::getDB()->insert("calulations", [
-                    // "cisnienieObliczeniowe" => $this->form->cisObliczeniowe,
-                    // "tempObliczeniowa" => $this->form->tempObliczeniowa,
-                    "idfluids" => $this->form->idfluids,
-                    "naprezeniaProjektowe" => $this->form->naprezeniaProjekowe,
-                    "wytrzymaloscZlacza" => $this->form->wytrzymaloscZlacza,
-                    "korozja" => $this->form->korozja,
-                    "tolerancjaScianki" => $this->form->tolerancjaScianki,
-                    "pocienienie" => $this->form->pocienienie,
-                    "najmniejszaGrubosc" => $this->form->najmniejszaGrubosc,
-                    "idusers" => $this->idusers[0]['idusers'],
-                    "idsteel" => $this->form->idSteel,
-                    "iddiameter" => $this->form->idDiameter,
-                    "idwallThickness" => $this->form->idWallThickness,
-
-                ]);
+                if ($this->form->id == '') {
+                    App::getDB()->insert("calulations", [
+                        // "cisnienieObliczeniowe" => $this->form->cisObliczeniowe,
+                        // "tempObliczeniowa" => $this->form->tempObliczeniowa,
+                        "idfluids" => $this->form->idfluids,
+                        "naprezeniaProjektowe" => $this->form->naprezeniaProjekowe,
+                        "wytrzymaloscZlacza" => $this->form->wytrzymaloscZlacza,
+                        "korozja" => $this->form->korozja,
+                        "tolerancjaScianki" => $this->form->tolerancjaScianki,
+                        "pocienienie" => $this->form->pocienienie,
+                        "najmniejszaGrubosc" => $this->form->najmniejszaGrubosc,
+                        "idusers" => $this->idusers[0]['idusers'],
+                        "idsteel" => $this->form->idSteel,
+                        "iddiameter" => $this->form->idDiameter,
+                        "idwallThickness" => $this->form->idWallThickness,
+                    ]);
+                } else {
+                    App::getDB()->update("calulations", [
+                        // "cisnienieObliczeniowe" => $this->form->cisObliczeniowe,
+                        // "tempObliczeniowa" => $this->form->tempObliczeniowa,
+                        "idfluids" => $this->form->idfluids,
+                        "naprezeniaProjektowe" => $this->form->naprezeniaProjekowe,
+                        "wytrzymaloscZlacza" => $this->form->wytrzymaloscZlacza,
+                        "korozja" => $this->form->korozja,
+                        "tolerancjaScianki" => $this->form->tolerancjaScianki,
+                        "pocienienie" => $this->form->pocienienie,
+                        "najmniejszaGrubosc" => $this->form->najmniejszaGrubosc,
+                        "idusers" => $this->idusers[0]['idusers'],
+                        "idsteel" => $this->form->idSteel,
+                        "iddiameter" => $this->form->idDiameter,
+                        "idwallThickness" => $this->form->idWallThickness,
+                    ], [
+                        "idcalulations" => $this->form->id,
+                    ]);
+                }
                 Utils::addInfoMessage('Pomyślnie zapisano rekord');
             } catch (\PDOException $e) {
                 Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');

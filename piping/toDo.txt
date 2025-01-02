@@ -26,10 +26,12 @@ TO-DO
 
 - widok listy użytkownika
     - doszlifować widok
+    - szerokość kolumn
     - stronnicowanie użytkowników
 
 - widok dodania nowych użytkowników
     - doszlifować widok
+    - ewentualnie: przy dodawaniu nowego user z błędem nie zapamiętuje się czy ma być aktywny
     - ewentualnie: jak usuwa się obecnie zalogowany user to wylogować go i zakończyć sesje
     - ewentualnie: jak obecnie zalogowany user zmienia swoją rolę lub login to aktualizowana jest sesja i role
     - ewentualnie: po usunięciu usera, który ma obliczenia należy zaktualizować tabelę z obliczeniami o ich przynależność
@@ -39,13 +41,10 @@ TO-DO
     - kolejność wyświetlania kolumn
     - szerokość kolumn
     - stronnicowanie wyników
-    - ewentualnie: dodać filtrowanie listy
 
 - widok obliczeń
     - doszlifować widok
     - zweryfikować co jest potrzebne do zapisie w bazie danych
-    - zaokrąglić wynik obliczeń naprężeń
-    - walidacja za pomocą walidatora
     - ewnetualnie: dla danego płynu mogą być tylko jedne obliczenia dla wybranej średnicy
     - ewentualnie: jak obliczenia będą ok to dodać przycisk zapisu do bazy danych
     - ewentualnie: wprowadzania liczby z przecinkiem a nie kropką jako separatorem
@@ -53,14 +52,17 @@ TO-DO
 
 - widok katalogów
     - doszlifować widok
-    - stronnicowanie wyników
-    - dodać filtrowanie listy
+    - szerokość kolumn
+    - ewentualnie: stronnicowanie wyników
     - ewentualnie: dodać prawa edycji i usuwania dla roli expert
     - ewentualnie: dodatkowe katalogi na tej samej stronie
 
 - widok listy płynów
     - doszlifować widok
     - szerokość kolumn
+
+- widok nowego płynu
+    - doszlifować widok
 
 Projektant
 - może za pomocą formularza dokonać obliczeń grubości ścianki rury i zapisać ją do bazy danych
@@ -73,5 +75,4 @@ Administrator
 
 Ekspert
 - może edytować wszystkie obliczenia
-- może edytować katalogi
 - może edytować listę płynów

@@ -9,6 +9,17 @@
         {/if}
     </div>	
 
+    <div class="bottom-margin">
+    <form class="pure-form pure-form-stacked" action="{$conf->action_url}fluidList">
+        <legend>Wyszukiwanie płynu</legend>
+        <fieldset>
+            <input type="text" placeholder="wpisz płyn" name="fluidSearch" value="{$searchForm->fluidSearch}" /><br />
+            <button type="submit" class="pure-button pure-button-primary">Szukaj</button>
+        </fieldset>
+    </form>
+    </div>	
+
+
     <h3>Lista płynów w projekcie</h3>
 
     <table id="tab_fluids" class="pure-table pure-table-bordered">

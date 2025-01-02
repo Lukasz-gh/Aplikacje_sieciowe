@@ -9,9 +9,18 @@
     {/if}
 </div>
 
-
 <h4>Witaj {$user->login}</h4>
 <h4>Twoje uprawnienia w systemie to {$user->role}</h4>
+
+<div class="bottom-margin">
+<form class="pure-form pure-form-stacked" action="{$conf->action_url}calcList">
+    <legend>Wyszukiwanie wyników</legend>
+    <fieldset>
+        <input type="text" placeholder="wpisz płyn" name="calcSearch" value="{$searchForm->calcSearch}" /><br />
+        <button type="submit" class="pure-button pure-button-primary">Szukaj</button>
+    </fieldset>
+</form>
+</div>	
 
 <h3>Lista wyników obliczeń</h3>
 

@@ -22,6 +22,9 @@ class UserEditCtrl {
     public function validateSave() {
         $this->form->id = ParamUtils::getFromRequest('id', true, 'Błędne wywołanie aplikacji');
 
+        if (App::getMessages()->isError())
+        return false;
+
         $v = new Validator();
 
         $this->form->login = $v->validateFromRequest('login', [
@@ -29,8 +32,7 @@ class UserEditCtrl {
             'required' => true,
             'required_message' => 'Wprowadź login',
             'min_length' => 2,
-            'max_length' => 20,
-            'validator_message' => 'Login musi mieć od 2 do 20 znaków'
+            'validator_message' => 'Login musi mieć minimum 2 znaki'
         ]);
 
         $this->form->password = $v->validateFromRequest('password', [
@@ -38,12 +40,8 @@ class UserEditCtrl {
             'required' => true,
             'required_message' => 'Wprowadź hasło',
             'min_length' => 2,
-            'max_length' => 20,
-            'validator_message' => 'Hasło musi mieć od 2 do 20 znaków'
+            'validator_message' => 'Hasło musi mieć minimum 2 znaki'
         ]);
-
-        // if (App::getMessages()->isError())
-        //     return false;
 
         $this->form->role = $v->validateFromRequest('role', [
             'trim' => true,
@@ -57,9 +55,8 @@ class UserEditCtrl {
             'required_message' => 'Wprowadź aktywność konta',
         ]);
 
-
         if (App::getMessages()->isError())
-            return false;
+        return false;
 
         if ($this->form->id == '') {
             if(
@@ -129,7 +126,7 @@ class UserEditCtrl {
     public function action_userDelete() {
         $this->lastAdmin();
         if ($this->validateEdit()) {
-            if($this->admins > 2) {
+            if(!$this->form->role == 'admin') {
                 try {
                     App::getDB()->delete("users", [
                         "idusers" => $this->form->id
@@ -140,13 +137,25 @@ class UserEditCtrl {
                     if (App::getConf()->debug)
                         Utils::addErrorMessage($e->getMessage());
                 }
-            } else {
+            } else if ($this->form->role = 'admin' AND $this->admins > 2) {
+                try {
+                    App::getDB()->delete("users", [
+                        "idusers" => $this->form->id
+                    ]);
+                    Utils::addInfoMessage('Pomyślnie usunięto rekord');
+                } catch (\PDOException $e) {
+                    Utils::addErrorMessage('Wystąpił błąd podczas usuwania rekordu');
+                    if (App::getConf()->debug)
+                        Utils::addErrorMessage($e->getMessage());
+                }
+            }else {
                 Utils::addErrorMessage('W systemie musi pozostać 2-óch administratorów');
             }
         }
 
         App::getRouter()->forwardTo('userList');
     }
+
 
     public function lastAdmin() {
         try {

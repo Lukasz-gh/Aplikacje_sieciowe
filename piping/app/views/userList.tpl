@@ -9,7 +9,7 @@
 
     <div class="bottom-margin">
     <form class="pure-form pure-form-stacked" action="{$conf->action_url}userList">
-        <legend>Wyszukwanie użytkownika</legend>
+        <legend>Wyszukiwanie użytkownika</legend>
         <fieldset>
             <input type="text" placeholder="wpisz login" name="loginSearch" value="{$searchForm->loginSearch}" /><br />
             <button type="submit" class="pure-button pure-button-primary">Szukaj</button>

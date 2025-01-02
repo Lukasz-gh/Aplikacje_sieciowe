@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2025-01-01 17:46:31
+/* Smarty version 4.3.4, created on 2025-01-02 21:50:39
   from 'C:\xampp\htdocs\piping\app\views\UserList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_677571672d9b27_33343538',
+  'unifunc' => 'content_6776fc1faddca7_15274306',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1144b98d88f835838849043294523b3c40740696' => 
     array (
       0 => 'C:\\xampp\\htdocs\\piping\\app\\views\\UserList.tpl',
-      1 => 1735749902,
+      1 => 1735850694,
       2 => 'file',
     ),
   ),
@@ -20,23 +20,23 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_677571672d9b27_33343538 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6776fc1faddca7_15274306 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1174976886677571672c94a9_08340134', 'content');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_17698416086776fc1facb254_67795899', 'content');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
 }
 /* {block 'content'} */
-class Block_1174976886677571672c94a9_08340134 extends Smarty_Internal_Block
+class Block_17698416086776fc1facb254_67795899 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'content' => 
   array (
-    0 => 'Block_1174976886677571672c94a9_08340134',
+    0 => 'Block_17698416086776fc1facb254_67795899',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -52,7 +52,7 @@ userNew">Nowy użytkownik</a>
     <div class="bottom-margin">
     <form class="pure-form pure-form-stacked" action="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_url;?>
 userList">
-        <legend>Wyszukwanie użytkownika</legend>
+        <legend>Wyszukiwanie użytkownika</legend>
         <fieldset>
             <input type="text" placeholder="wpisz login" name="loginSearch" value="<?php echo $_smarty_tpl->tpl_vars['searchForm']->value->loginSearch;?>
 " /><br />

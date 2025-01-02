@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2025-01-01 18:11:41
+/* Smarty version 4.3.4, created on 2025-01-02 21:49:17
   from 'C:\xampp\htdocs\piping\app\views\CalcList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_6775774dc25d21_20339257',
+  'unifunc' => 'content_6776fbcde0b514_94043219',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e62b396188b28f751b950ce5296fbdbf2f616cb9' => 
     array (
       0 => 'C:\\xampp\\htdocs\\piping\\app\\views\\CalcList.tpl',
-      1 => 1735751493,
+      1 => 1735850921,
       2 => 'file',
     ),
   ),
@@ -20,25 +20,25 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6775774dc25d21_20339257 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6776fbcde0b514_94043219 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_17619023186775774dc10522_88994965', 'content');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1643041956776fbcddf5600_83817446', 'content');
 ?>
 
 <?php $_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
 }
 /* {block 'content'} */
-class Block_17619023186775774dc10522_88994965 extends Smarty_Internal_Block
+class Block_1643041956776fbcddf5600_83817446 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'content' => 
   array (
-    0 => 'Block_17619023186775774dc10522_88994965',
+    0 => 'Block_1643041956776fbcddf5600_83817446',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -53,11 +53,22 @@ calcNew">Nowe obliczenia</a>
     <?php }?>
 </div>
 
-
 <h4>Witaj <?php echo $_smarty_tpl->tpl_vars['user']->value->login;?>
 </h4>
 <h4>Twoje uprawnienia w systemie to <?php echo $_smarty_tpl->tpl_vars['user']->value->role;?>
 </h4>
+
+<div class="bottom-margin">
+<form class="pure-form pure-form-stacked" action="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_url;?>
+calcList">
+    <legend>Wyszukiwanie wyników</legend>
+    <fieldset>
+        <input type="text" placeholder="wpisz płyn" name="calcSearch" value="<?php echo $_smarty_tpl->tpl_vars['searchForm']->value->calcSearch;?>
+" /><br />
+        <button type="submit" class="pure-button pure-button-primary">Szukaj</button>
+    </fieldset>
+</form>
+</div>	
 
 <h3>Lista wyników obliczeń</h3>
 

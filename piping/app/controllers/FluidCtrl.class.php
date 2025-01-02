@@ -18,39 +18,51 @@ class FluidCtrl {
 
     public function validateSave() {
         $this->form->idfluids = ParamUtils::getFromRequest('idfluids', true, 'Błędne wywołanie aplikacji');
-        $this->form->fluid = ParamUtils::getFromRequest('fluid', true, 'Błędne wywołanie aplikacji');
-        $this->form->cisOperacyjne = ParamUtils::getFromRequest('cisOperacyjne', true, 'Błędne wywołanie aplikacji');
-        $this->form->cisObliczeniowe = ParamUtils::getFromRequest('cisObliczeniowe', true, 'Błędne wywołanie aplikacji');
-        $this->form->tempOperacyjna = ParamUtils::getFromRequest('tempOperacyjna', true, 'Błędne wywołanie aplikacji');
-        $this->form->tempObliczeniowa = ParamUtils::getFromRequest('tempObliczeniowa', true, 'Błędne wywołanie aplikacji');
 
         if (App::getMessages()->isError())
             return false;
 
-        if (empty(trim($this->form->fluid))) {
-            Utils::addErrorMessage('Wprowadź nazwę płynu');
-        }
-        if (empty(trim($this->form->cisObliczeniowe))) {
-            Utils::addErrorMessage('Wprowadź ciśnienie obliczeniowe');
-        }
-        if (empty(trim($this->form->tempObliczeniowa))) {
-            Utils::addErrorMessage('Wprowadź temperaturę obliczeniową');
-        }
-        if (!is_numeric($this->form->tempObliczeniowa)) {
-            Utils::addErrorMessage('Temperatura obliczeniowa musi być wartością liczbową');
-        }
-        if (!is_numeric($this->form->tempOperacyjna)) {
-            Utils::addErrorMessage('Temperatura operacyjna musi być wartością liczbową');
-        }
-        if (!is_numeric($this->form->cisOperacyjne)) {
-            Utils::addErrorMessage('Ciśnienie operacyjne musi być wartością liczbową');
-        }
-        if (!is_numeric($this->form->cisObliczeniowe)) {
-            Utils::addErrorMessage('Ciśnienie obliczeniowe musi być wartością liczbową');
-        }
-        if (($this->form->cisObliczeniowe) < 0) {
-            Utils::addErrorMessage('Ciśnienie musi być powyżej ciśnienie otoczenia');
-        }
+        $v = new Validator();
+
+        $this->form->fluid = $v->validateFromRequest('fluid', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Wprowadź nazwę płynu',
+        ]);
+
+        $this->form->cisObliczeniowe = $v->validateFromRequest('cisObliczeniowe', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Wprowadź ciśnienie obliczeniowe',
+            'numeric' => true,
+            'validator_message' => 'Ciśnienie obliczeniowe musi być wartością liczbową',
+            'min' => 0,
+            'validator_message' => 'Ciśnienie obliczeniowe musi być powyżej ciśnienie otoczenia',
+        ]);
+
+        $this->form->cisOperacyjne = $v->validateFromRequest('cisOperacyjne', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Wprowadź ciśnienie operacyjne',
+            'numeric' => true,
+            'validator_message' => 'Ciśnienie operacyjne musi być wartością liczbową',
+        ]);
+
+        $this->form->tempOperacyjna = $v->validateFromRequest('tempOperacyjna', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Wprowadź temperaturę operacyjną',
+            'numeric' => true,
+            'validator_message' => 'Temperatura operacyjna musi być wartością liczbową',
+        ]);
+
+        $this->form->tempObliczeniowa = $v->validateFromRequest('tempObliczeniowa', [
+            'trim' => true,
+            'required' => true,
+            'required_message' => 'Wprowadź temperaturę obliczeniową',
+            'numeric' => true,
+            'validator_message' => 'Temperatura obliczeniowa musi być wartością liczbową',
+        ]);
 
         if (App::getMessages()->isError())
             return false;
